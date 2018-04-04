@@ -15,7 +15,8 @@ class App extends Component {
       APIData: [],
       savedData: [],
       imgUrl: "",
-      showResults: false
+      showResults: false,
+      showSavedResults: false
     };
   }
 
@@ -60,7 +61,7 @@ class App extends Component {
     let data = { faces, image };
     console.log(data);
     try {
-      await axios.POST("/", data).then(res => {
+      await axios.post("/", data).then(res => {
         // let parsed = JSON.parse(res.data)
         this.setState({ savedData: [...this.state.savedData, res.data] });
         console.log("backend saved Data", this.state.savedData);
@@ -71,7 +72,7 @@ class App extends Component {
   };
 
   // Deleting the saved data from Database
-  delInfo = async (id) => {
+  delInfo = async id => {
     try {
       await axios.delete(`/${id}`).then(res => {
         if (res.data === "OK") {
@@ -85,7 +86,11 @@ class App extends Component {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
+
+  // Saving to favorites
+
+  updateFav = () => {};
 
   // Search API with user input
   // callAPI = (userInput, agency_name, limit) => {
@@ -136,27 +141,33 @@ class App extends Component {
   // };
 
   // delItem = async delItem => {
-    // let id = delItem.id;
-    // console.log(delItem);
-    // try {
-    //   await axios.delete(`/${id}`).then(res => {
-    //     if (res.data === "OK") {
-    //       this.setState({
-    //         savedData: this.state.savedData.filter(e => e.id !== id)
-    //       });
-    //     }
-    //     console.log(res);
-    //     console.log("DELETE Request SENT");
-    //   });
-    // } catch (error) {
-    //   console.log(error);
-    // }
+  // let id = delItem.id;
+  // console.log(delItem);
+  // try {
+  //   await axios.delete(`/${id}`).then(res => {
+  //     if (res.data === "OK") {
+  //       this.setState({
+  //         savedData: this.state.savedData.filter(e => e.id !== id)
+  //       });
+  //     }
+  //     console.log(res);
+  //     console.log("DELETE Request SENT");
+  //   });
+  // } catch (error) {
+  //   console.log(error);
+  // }
   // };
   savedBtnToggle = () => {
     return (
       <Row className="btnRow">
         <Col className="s12 offset-s12">
-          {this.state.showResults ? (
+          {this.state.showSavedResults ? (
+            <a className="btn-floating btn-large waves-effect waves-light red ">
+              <i className="material-icons" onClick={() => this.delInfo()}>
+                delete_forever
+              </i>
+            </a>
+          ) : (
             <a className="btn-floating btn-large waves-effect waves-light green ">
               <i
                 className="material-icons"
@@ -164,13 +175,7 @@ class App extends Component {
                   this.addInfo(this.state.APIData, this.state.imgUrl)
                 }
               >
-                <i class="material-icons">add</i>
-              </i>
-            </a>
-          ) : (
-            <a className="btn-floating btn-large waves-effect waves-light red ">
-              <i className="material-icons" onClick={() => this.delInfo()}>
-                <i className="material-icons">delete_forever</i>
+                add
               </i>
             </a>
           )}
@@ -193,12 +198,13 @@ class App extends Component {
         )}
         <InputForm saveImgLink={this.saveImgLink} />
 
-        {this.savedBtnToggle()}
+        {this.state.showResults ? this.savedBtnToggle() : ""}
         {this.state.showResults ? (
           <Results
             APIData={this.state.APIData}
             showResults={this.state.showResults}
             imgUrl={this.state.imgUrl}
+            showSavedResults={this.state.showSavedResults}
           />
         ) : (
           ""

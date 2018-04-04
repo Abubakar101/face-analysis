@@ -21,7 +21,11 @@ class Results extends Component {
       }
 
       console.log(styles)
-
+    //   <a className="btn-floating btn-small waves-effect waves-light right green">
+    //   <i className="material-icons" onClick={() => this.props.updateFav(e)}>
+    //   {this.props.showSavedResults.isFavorite ? "favorite" :"favorite_border" }
+    //   </i>
+    // </a>
         return (
           <Col s={4} key={i}>
             <CardPanel className="teal lighten-4 black-text">
