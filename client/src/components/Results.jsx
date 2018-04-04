@@ -11,18 +11,22 @@ class Results extends Component {
     renderValues = () => {
       return this.props.APIData.map((e, i) => {
         return (
-          <Col s={12} key={i}>
+          <Col s={4} key={i}>
           <CardPanel className="teal lighten-4 black-text">
             <h6>Age: {e.age.value}</h6>
             <h6>Ethnicity: {e.ethnicity.value}</h6>
             <h6>Gender: {e.gender.value}</h6>
-
-            {this.createCanvas("beautyScore","doughnut", ["Male", "Female"], "Male & Females Beauty Ratings", [
+            
+            <br></br>
+            <h5>Beauty Scores</h5>
+            {this.createCanvas(`beautyScore${i}`,"pie", ["Male", "Female"], "Male & Females Beauty Ratings", [
               e.beauty.male_score,
               e.beauty.female_score
             ])}
-
-            {this.createCanvas("emotion", "bar", ["Anger", "Disgust", "Fear", "Happiness", "Neutral", "Sadness", "Surprise" ], "Emotions", [
+            
+            <br></br>
+            <h5>Emotions</h5>
+            {this.createCanvas(`emotion${i}`, "doughnut", ["Anger", "Disgust", "Fear", "Happiness", "Neutral", "Sadness", "Surprise" ], "Emotions", [
               e.emotion.anger,
               e.emotion.disgust,
               e.emotion.fear,
@@ -31,6 +35,9 @@ class Results extends Component {
               e.emotion.sadness,
               e.emotion.surprise
             ])}
+
+
+
 
             </CardPanel>
             </Col>
@@ -45,7 +52,7 @@ class Results extends Component {
     console.log(this.props.APIData);
 
     return (
-      <Row>
+      <Row className="resultsRow">
       {this.renderValues()}
       </Row>
     );
@@ -54,25 +61,17 @@ class Results extends Component {
 
 export default Results;
 
-// <span>{this.props.APIData.beauty.male_score}</span>
-// <span>{this.props.APIData.beauty.female_score}</span>
-// {
-//   this.props.APIData ? this.renderValues : "Loaidng";
-// }
+// {this.createCanvas("beautyScore","doughnut", ["Male", "Female"], "Male & Females Beauty Ratings", [
+//   e.beauty.male_score,
+//   e.beauty.female_score
+// ])}
 
-// <Row>
-//           {(this.props.showResults) ? this.props.APIData.faces[0].attributes.map((e, i) => {
-//             console.log(e);
-//             return (
-//               <Col m={7} s={12}>
-//                 <Card horizontal key={i} id={i}>
-//                   <p>
-//                     <span>Age: {e.age.value}</span>
-//                     <span>Ethnicity: {e.ethnicity.value}</span>
-//                     <span>Gender: {e.gender.value}</span>
-//                   </p>
-//                 </Card>
-//               </Col>
-//             );
-//           }): ""}
-//         </Row>
+// {this.createCanvas("emotion", "bar", ["Anger", "Disgust", "Fear", "Happiness", "Neutral", "Sadness", "Surprise" ], "Emotions", [
+//   e.emotion.anger,
+//   e.emotion.disgust,
+//   e.emotion.fear,
+//   e.emotion.happiness,
+//   e.emotion.neutral,
+//   e.emotion.sadness,
+//   e.emotion.surprise
+// ])}

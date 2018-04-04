@@ -6,15 +6,7 @@ class Charts extends Component {
     this.createChart();
   }
 
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   if (this.props.APIData != nextProps) {
-  //     return true;
-  //   }
-  //   return false;
-  // }
-
   createChart = (id, type, labels, label, data) => {
-    // console.log(this.props)
     var ctx = document.getElementById(this.props.id);
     new Chart(ctx, {
       type: this.props.type,
@@ -29,16 +21,18 @@ class Charts extends Component {
               "#8e5ea2",
               "#3cba9f",
               "#e8c3b9",
-              "#c45850"
+              "#c45850",
+              "#003153",
+              "#18453B",
+              "#E9692C"
             ]
           }
         ]
       },
-      options: {
-        title: {
-          display: true,
-          text: this.props.label
-        }
+      options:{
+        animation: {
+          animateScale: true
+        } 
       }
     });
   };
@@ -46,7 +40,10 @@ class Charts extends Component {
   render() {
     return (
       <div>
-        <canvas id={this.props.id} style={{width:`300px`, height:`300px` }} />
+        <canvas
+          id={this.props.id}
+          style={{ width: `300px`, height: `300px` }}
+        />
       </div>
     );
   }
