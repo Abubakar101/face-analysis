@@ -37,9 +37,13 @@ class App extends Component {
       const response = await axios.post(
         `${url}?api_key=${api_key}&api_secret=${api_secret}&image_url=${image_url}&return_attributes=${return_attributes}`
       );
-      // debugger;
+
+      // Sorting the faces from left to right.
+      let sortedAPIData = response.data.faces.sort((a,b) => a.face_rectangle.left - b.face_rectangle.left);
+      let faceAttr = sortedAPIData.map(e => e.attributes);
+      console.log(response.data)
       this.setState({
-        APIData: response.data.faces[0].attributes,
+        APIData: faceAttr,
         showResults: true
       });
 
@@ -118,11 +122,12 @@ class App extends Component {
 
   render() {
     // debugger;
-    console.log(this.state.APIData);
+    // console.log(this.state.APIData);
 
     return (
       <div className="app">
         <Nav toggleResults={this.toggleResults} />
+
 
         {this.state.imgUrl.length > 0 ? (
           <img src={this.state.imgUrl} id="personImg" alt="" />

@@ -14,7 +14,7 @@ class Charts extends Component {
   // }
 
   createChart = (id, type, labels, label, data) => {
-    console.log(this.props)
+    // console.log(this.props)
     var ctx = document.getElementById(this.props.id);
     new Chart(ctx, {
       type: this.props.type,
