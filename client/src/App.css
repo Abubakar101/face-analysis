@@ -35,7 +35,7 @@ justify-content: center;
 }
 
 
-.resultsRow{
+.resultsRow, .btnRow{
   width: 75%;
 }
 

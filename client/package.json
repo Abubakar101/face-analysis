@@ -8,7 +8,7 @@
     "chart.js": "^2.7.2",
     "jquery": "^3.3.1",
     "jquery-ui": "^1.12.1",
-    "materialize-css": "^0.100.2",
+    "materialize-css": "^1.0.0-beta",
     "react": "^16.3.1",
     "react-dom": "^16.3.1",
     "react-materialize": "^2.1.2",
