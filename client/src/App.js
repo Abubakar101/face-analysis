@@ -40,10 +40,10 @@ class App extends Component {
 
       // Sorting the faces from left to right.
       let sortedAPIData = response.data.faces.sort((a,b) => a.face_rectangle.left - b.face_rectangle.left);
-      let faceAttr = sortedAPIData.map(e => e.attributes);
+      // let faceAttr = sortedAPIData.map(e => e.attributes);
       console.log(response.data)
       this.setState({
-        APIData: faceAttr,
+        APIData: sortedAPIData,
         showResults: true
       });
 
@@ -140,6 +140,7 @@ class App extends Component {
           <Results
             APIData={this.state.APIData}
             showResults={this.state.showResults}
+            imgUrl={this.state.imgUrl}
           />
         ) : (
           ""

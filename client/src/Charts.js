@@ -29,10 +29,10 @@ class Charts extends Component {
           }
         ]
       },
-      options:{
+      options: {
         animation: {
           animateScale: true
-        } 
+        }
       }
     });
   };
