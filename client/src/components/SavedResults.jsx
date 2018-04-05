@@ -1,14 +1,22 @@
 import React, { Component } from "react";
-import { Button, Col, Row, Card, CardPanel } from "react-materialize";
+import { Col, Row, CardPanel } from "react-materialize";
 import Charts from "../Charts";
 
 class SavedResults extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      delID: null
+      delID: null,
+      isFavorite: false
     };
   }
+
+  //   shouldComponentUpdate(nextProps, nextState) {
+  //     if (this.props.isFavorite !== nextProps) {
+  //       return true;
+  //     }
+  //     return false;
+  //   }
 
   //   Charts
   createCanvas = (id, type, labels, label, data) => {
@@ -34,6 +42,10 @@ class SavedResults extends Component {
     console.log(delID);
   };
 
+  setFav = () => {
+    this.setState({ isFavorite: !this.state.isFavorite });
+  };
+
   //   Saved Values from Database
   renderValues = () => {
     return this.props.resultsData.map(e => {
@@ -48,15 +60,27 @@ class SavedResults extends Component {
           backgroundImage: `url(${e.image})`
         };
 
+        console.log(e);
+        let favClassName = `btn-floating btn-small waves-effect waves-light right ${
+          e.favorite ? "green" : "grey"
+        }`;
         return (
-          <Col
-            s={4}
-            className="infoCards"
-            key={i}
-            id={e.id}
-            onClick={() => this.saveID(e.id)}
-          >
-            <CardPanel className="teal lighten-4 black-text">
+          <Col s={4} key={i} id={e.id}>
+            <a className={favClassName}>
+              <i
+                className="material-icons"
+                onClick={() => {
+                  this.props.updateFav(e.id, e.favorite);
+                  this.setFav();
+                }}
+              >
+                {e.favorite ? "favorite" : "favorite_border"}
+              </i>
+            </a>
+            <CardPanel
+              className="teal lighten-4 black-text infoCards"
+              onClick={() => this.saveID(e.id)}
+            >
               <div style={styles} />
               <h6>Age: {j.attributes.age.value}</h6>
               <h6>Ethnicity: {j.attributes.ethnicity.value}</h6>
@@ -104,13 +128,6 @@ class SavedResults extends Component {
           </Col>
         );
       });
-
-      //   console.log(styles);
-      //   <a className="btn-floating btn-small waves-effect waves-light right green">
-      //   <i className="material-icons" onClick={() => this.props.updateFav(e)}>
-      //   {this.props.showSavedResults.isFavorite ? "favorite" :"favorite_border" }
-      //   </i>
-      // </a>
     });
   };
 

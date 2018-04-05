@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Col, Row, Card, CardPanel } from "react-materialize";
+import { Col, Row, CardPanel } from "react-materialize";
 import Charts from "../Charts";
 
 class Results extends Component {

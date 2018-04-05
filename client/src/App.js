@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 // import { BrowserRouter as Switch } from "react-router-dom";
-import { Button, Col, Row, Card } from "react-materialize";
+import { Col, Row } from "react-materialize";
 import "./App.css";
 import axios from "axios";
 
@@ -18,6 +18,7 @@ class App extends Component {
       imgUrl: "",
       showResults: false,
       showSavedResults: false
+      // isFavorite: false,
     };
   }
 
@@ -25,7 +26,6 @@ class App extends Component {
     // Get all saved data from DB
     try {
       await axios.get("/datas").then(res => {
-        // let ascendingOrder = e.data.sort((a, b) => a.position - b.position)
         const parsed = res.data.map(e => {
           return {
             id: e.id,
@@ -36,7 +36,6 @@ class App extends Component {
         });
 
         this.setState({ savedData: parsed });
-        // console.log(this.state.savedData);
       });
     } catch (error) {
       console.log(error);
@@ -78,7 +77,7 @@ class App extends Component {
   // Adding saved data into Database - both information and image
   addInfo = async (faces, image) => {
     let face = JSON.stringify(faces);
-    let data = { face, image };
+    let data = { face, image, favorite: false };
 
     try {
       await axios.post("/", data).then(res => {
@@ -117,37 +116,17 @@ class App extends Component {
   };
 
   // Saving to favorites
-  updateFav = () => {};
-
-  // reOrderList = async itemsId => {
-  //   try {
-  //     for (let i = 0, j = itemsId.length; i < j; i++) {
-  //       await axios.patch(`/${itemsId[i]}`, { position: i + 1 }).then(e => {
-  //         console.log("Position Updated");
-  //       });
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  // delItem = async delItem => {
-  // let id = delItem.id;
-  // console.log(delItem);
-  // try {
-  //   await axios.delete(`/${id}`).then(res => {
-  //     if (res.data === "OK") {
-  //       this.setState({
-  //         savedData: this.state.savedData.filter(e => e.id !== id)
-  //       });
-  //     }
-  //     console.log(res);
-  //     console.log("DELETE Request SENT");
-  //   });
-  // } catch (error) {
-  //   console.log(error);
-  // }
-  // };
+  updateFav = async (id, fav) => {
+    console.log(id, fav);
+    let isFavorite = !fav;
+    try {
+      await axios.patch(`/${id}`, { favorite: isFavorite }).then(e => {
+        console.log("Position Updated");
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   // Toggling the views between "API results" and "Saved Data Results"
   toggleResults = () => {
@@ -212,7 +191,8 @@ class App extends Component {
           <SavedResults
             resultsData={this.state.savedData}
             delInfo={this.delInfo}
-            showSavedResults={this.state.showSavedResults}
+            isFavorite={this.state.isFavorite}
+            updateFav={this.updateFav}
           />
         )}
       </div>
@@ -221,18 +201,3 @@ class App extends Component {
 }
 
 export default App;
-
-// <InputForm
-// callAPI={this.callAPI}
-// columnAgency_name={this.state.columnAgency_name}
-// />
-
-// <Results
-// reOrderList={this.reOrderList}
-// data={this.state.data}
-// toggleResults={this.toggleResults}
-// shouldShowSaveResults={this.state.shouldShowSaveResults}
-// savedData={this.state.savedData}
-// saveItem={this.saveItem}
-// delItem={this.delItem}
-// />
