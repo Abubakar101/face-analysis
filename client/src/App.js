@@ -83,7 +83,7 @@ class App extends Component {
     let data = { face, image, favorite: false };
 
     try {
-      await axios.post("/", data).then(res => {
+      await axios.post("/datas", data).then(res => {
         let parsed = {
           id: res.data.id,
           faces: JSON.parse(res.data.face),
@@ -100,7 +100,7 @@ class App extends Component {
   // Deleting the saved data from Database
   delInfo = async id => {
     try {
-      await axios.delete(`/${id}`).then(res => {
+      await axios.delete(`/datas/${id}`).then(res => {
         if (res.data === "OK") {
           this.setState({
             savedData: this.state.savedData.filter(e => e.id !== id)
@@ -120,7 +120,7 @@ class App extends Component {
   updateFav = async (id, fav) => {
     let isFavorite = !fav;
     try {
-      await axios.patch(`/${id}`, { favorite: isFavorite }).then(e => {
+      await axios.patch(`/datas/${id}`, { favorite: isFavorite }).then(e => {
         // Calling get request from database with updated information
         this.getDBInfo();
       });

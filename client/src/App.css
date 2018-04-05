@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: rgb(255, 245, 238, 0.1);
 }
 
 .navbar-fixed {
@@ -33,10 +32,11 @@
   justify-content: center;
 }
 
-.resultsRow, .btnRow{
+.resultsRow,
+.btnRow {
   width: 75%;
 }
 
-.infoCards{
+.infoCards {
   cursor: pointer;
 }
