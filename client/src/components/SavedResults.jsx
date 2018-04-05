@@ -3,18 +3,38 @@ import { Button, Col, Row, Card, CardPanel } from "react-materialize";
 import Charts from "../Charts";
 
 class SavedResults extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      delID: null
+    };
+  }
+
+  //   Charts
   createCanvas = (id, type, labels, label, data) => {
     return (
       <Charts id={id} type={type} labels={labels} label={label} data={data} />
     );
   };
 
+  //   Creating a random unique ID for Canvas
   uniqueID = () =>
     "_" +
     Math.random()
       .toString(36)
       .substr(2, 9);
 
+  //   Saving delID to pass down to to delete function
+  saveID = delID => {
+    if (delID) {
+      this.setState({ delID });
+    } else {
+      this.setState({ delID: null });
+    }
+    console.log(delID);
+  };
+
+  //   Saved Values from Database
   renderValues = () => {
     return this.props.resultsData.map(e => {
       let styles = {};
@@ -27,21 +47,16 @@ class SavedResults extends Component {
           }px`,
           backgroundImage: `url(${e.image})`
         };
-        console.log(styles);
 
         return (
-          <Col s={4} key={i} id={e.id}>
+          <Col
+            s={4}
+            className="infoCards"
+            key={i}
+            id={e.id}
+            onClick={() => this.saveID(e.id)}
+          >
             <CardPanel className="teal lighten-4 black-text">
-              <Col className="s12 offset-s12">
-                <a className="btn-floating btn-large waves-effect waves-light red ">
-                  <i
-                    className="material-icons"
-                    onClick={() => this.props.delInfo()}
-                  >
-                    delete_forever
-                  </i>
-                </a>
-              </Col>
               <div style={styles} />
               <h6>Age: {j.attributes.age.value}</h6>
               <h6>Ethnicity: {j.attributes.ethnicity.value}</h6>
@@ -101,8 +116,29 @@ class SavedResults extends Component {
 
   render() {
     console.log(this.props.resultsData);
+    let delClassName = `btn-floating btn-large waves-effect waves-light red ${
+      this.state.delID ? "" : "disabled"
+    }`;
 
-    return <Row className="resultsRow">{this.renderValues()}</Row>;
+    return (
+      <Row className="resultsRow">
+        <Col className="s12 offset-s12">
+          <a className={delClassName}>
+            <i
+              className="material-icons"
+              onClick={() => {
+                this.props.delInfo(this.state.delID);
+                this.saveID();
+              }}
+            >
+              delete_forever
+            </i>
+          </a>
+        </Col>
+
+        {this.renderValues()}
+      </Row>
+    );
   }
 }
 

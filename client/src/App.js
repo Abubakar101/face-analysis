@@ -26,15 +26,14 @@ class App extends Component {
     try {
       await axios.get("/datas").then(res => {
         // let ascendingOrder = e.data.sort((a, b) => a.position - b.position)
-        const parsed = res.data.map(e=> {
+        const parsed = res.data.map(e => {
           return {
             id: e.id,
             faces: JSON.parse(e.face),
             image: e.image,
             favorite: e.favorite
           };
-          
-        })
+        });
 
         this.setState({ savedData: parsed });
         // console.log(this.state.savedData);
@@ -99,6 +98,7 @@ class App extends Component {
 
   // Deleting the saved data from Database
   delInfo = async id => {
+    console.log("App Getting ID ", id);
     try {
       await axios.delete(`/${id}`).then(res => {
         if (res.data === "OK") {
@@ -106,8 +106,10 @@ class App extends Component {
             savedData: this.state.savedData.filter(e => e.id !== id)
           });
         }
-        // console.log(res);
-        console.log("DELETE Request SENT");
+
+        if (!this.state.savedData[0]) {
+          window.location.reload();
+        }
       });
     } catch (error) {
       console.log(error);
@@ -115,44 +117,7 @@ class App extends Component {
   };
 
   // Saving to favorites
-
   updateFav = () => {};
-
-  // Search API with user input
-  // callAPI = (userInput, agency_name, limit) => {
-  //   let URL = `https://data.cityofnewyork.us/resource/buex-bi6w.json?$select=additional_description_1 as description,agency_name as agencyName,section_name as sectionName,short_title as shortTitle`;
-  //   agency_name && (URL += `&agency_name=${agency_name}`);
-  //   URL += `&$q=${userInput}`;
-  //   limit && (URL += `&$limit=${limit}`);
-  //   try {
-  //     axios.get(URL).then(e => {
-  //       this.setState({ data: e.data });
-
-  //       console.log(e.data);
-  //     });
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  //   console.log(userInput, agency_name, limit);
-  // };
-
-  // toggleResults = e => {
-  //   this.setState({ shouldShowSaveResults: !this.state.shouldShowSaveResults });
-  //   // console.log("eorking")
-  // };
-
-  // Save to DB
-  // saveItem = async addData => {
-  //   try {
-  // await axios.post("/", addData).then(res => {
-  //   this.setState({ savedData: [...this.state.savedData, res.data] });
-  //       // console.log(this.state.savedData);
-  //     });
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  //   // console.log(addData);
-  // };
 
   // reOrderList = async itemsId => {
   //   try {
@@ -194,7 +159,7 @@ class App extends Component {
       <Row className="btnRow">
         <Col className="s12 offset-s12">
           {this.state.showSavedResults ? (
-            <a className="btn-floating btn-large waves-effect waves-light red ">
+            <a className="btn-floating btn-large waves-effect waves-light green ">
               <i
                 className="material-icons"
                 onClick={() => this.toggleResults()}
@@ -233,22 +198,23 @@ class App extends Component {
 
         {this.state.savedData[0] ? this.showResultsToggle() : ""}
 
-
-        {  !this.state.showSavedResults ? (
-          this.state.showResults ?
-            (<Results
+        {!this.state.showSavedResults ? (
+          this.state.showResults ? (
+            <Results
               APIData={this.state.APIData}
               imgUrl={this.state.imgUrl}
               addInfo={this.addInfo}
-            />) : ""
-          ) : (
-            <SavedResults
-              resultsData={this.state.savedData}
-              delInfo={this.delInfo}
-              showSavedResults={this.state.showSavedResults}
             />
-          )}
-     
+          ) : (
+            ""
+          )
+        ) : (
+          <SavedResults
+            resultsData={this.state.savedData}
+            delInfo={this.delInfo}
+            showSavedResults={this.state.showSavedResults}
+          />
+        )}
       </div>
     );
   }

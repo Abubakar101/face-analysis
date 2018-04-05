@@ -36,3 +36,7 @@
 .resultsRow, .btnRow{
   width: 75%;
 }
+
+.infoCards{
+  cursor: pointer;
+}
