@@ -118,7 +118,6 @@ class App extends Component {
 
   // Saving to favorites
   updateFav = async (id, fav) => {
-    console.log(id, fav);
     let isFavorite = !fav;
     try {
       await axios.patch(`/${id}`, { favorite: isFavorite }).then(e => {

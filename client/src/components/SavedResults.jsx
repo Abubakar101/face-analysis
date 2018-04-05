@@ -32,7 +32,6 @@ class SavedResults extends Component {
     } else {
       this.setState({ delID: null });
     }
-    console.log(delID);
   };
 
   setFav = () => {
