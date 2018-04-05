@@ -20,7 +20,7 @@ public class DatasController {
     @Autowired
     private DataRepository dataRepository;
 
-    @GetMapping("/")
+    @GetMapping("/datas")
     public Iterable<Data> findAllDatas() {
         return dataRepository.findAll();
     }

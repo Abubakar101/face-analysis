@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Button, Col, Row, Card, CardPanel } from "react-materialize";
 import Charts from "../Charts";
 
-class Results extends Component {
+class SavedResults extends Component {
   createCanvas = (id, type, labels, label, data) => {
     return (
       <Charts id={id} type={type} labels={labels} label={label} data={data} />
@@ -10,7 +10,10 @@ class Results extends Component {
   };
 
   renderValues = () => {
-    return this.props.APIData.map((e, i) => {
+    debugger;
+    return this.props.ResultsData.map((e, i) => {
+      console.log(e.attributes);
+
       let styles = {
         width: `${e.face_rectangle.width}px`,
         height: `${e.face_rectangle.height}px`,
@@ -20,6 +23,12 @@ class Results extends Component {
         backgroundImage: `url(${this.props.imgUrl})`
       };
 
+      console.log(styles);
+      //   <a className="btn-floating btn-small waves-effect waves-light right green">
+      //   <i className="material-icons" onClick={() => this.props.updateFav(e)}>
+      //   {this.props.showSavedResults.isFavorite ? "favorite" :"favorite_border" }
+      //   </i>
+      // </a>
       return (
         <Col s={4} key={i}>
           <CardPanel className="teal lighten-4 black-text">
@@ -70,17 +79,14 @@ class Results extends Component {
   };
 
   render() {
+    console.log(this.props.resultsData);
+
     return (
       <Row className="resultsRow">
         <Col className="s12 offset-s12">
-          <a className="btn-floating btn-large waves-effect waves-light green ">
-            <i
-              className="material-icons"
-              onClick={() =>
-                this.props.addInfo(this.props.APIData, this.props.imgUrl)
-              }
-            >
-              add
+          <a className="btn-floating btn-large waves-effect waves-light red ">
+            <i className="material-icons" onClick={() => this.props.delInfo()}>
+              delete_forever
             </i>
           </a>
         </Col>
@@ -91,4 +97,4 @@ class Results extends Component {
   }
 }
 
-export default Results;
+export default SavedResults;

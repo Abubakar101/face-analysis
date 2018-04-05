@@ -6,6 +6,7 @@ import axios from "axios";
 
 import Nav from "./components/Nav";
 import Results from "./components/Results";
+import SavedResults from "./components/SavedResults";
 import InputForm from "./components/InputForm";
 
 class App extends Component {
@@ -23,17 +24,20 @@ class App extends Component {
   async componentDidMount() {
     // Get all saved data from DB
     try {
-      await axios.get("/").then(res => {
+      await axios.get("/datas").then(res => {
         // let ascendingOrder = e.data.sort((a, b) => a.position - b.position)
-        console.log(res.data)
-        let parsed = {
-          id: res.data.id,
-          faces: JSON.parse(res.data.face),
-          image: res.data.image,
-          favorite: res.data.favorite
-        };
+        const parsed = res.data.map(e=> {
+          return {
+            id: e.id,
+            faces: JSON.parse(e.face),
+            image: e.image,
+            favorite: e.favorite
+          };
+          
+        })
+
         this.setState({ savedData: parsed });
-        console.log(parsed);
+        console.log(this.state.savedData);
       });
     } catch (error) {
       console.log(error);
@@ -215,6 +219,7 @@ class App extends Component {
 
   render() {
     console.log(this.state.APIData)
+    console.log(...this.state.savedData)
     return (
       <div className="app">
         <Nav />
@@ -226,29 +231,25 @@ class App extends Component {
         )}
         <InputForm saveImgLink={this.saveImgLink} />
 
-        {this.state.showResults ? this.showResultsToggle() : ""}
+        {this.state.savedData[0] ? this.showResultsToggle() : ""}
 
-        {this.state.showResults ? (
-          !this.state.showSavedResults ? (
-            <Results
-              resultsData={this.state.APIData}
+
+        {  !this.state.showSavedResults ? (
+          this.state.showResults ?
+            (<Results
+              APIData={this.state.APIData}
               imgUrl={this.state.imgUrl}
-              showResults={this.state.showResults}
               addInfo={this.addInfo}
-              showSavedResults={this.state.showSavedResults}
-            />
+            />) : ""
           ) : (
-            <Results
+            <SavedResults
               resultsData={this.state.savedData}
-              imgUrl={this.state.savedData.image}
               imgUrl={this.state.savedData.image}
               delInfo={this.delInfo}
               showSavedResults={this.state.showSavedResults}
             />
-          )
-        ) : (
-          ""
-        )}
+          )}
+     
       </div>
     );
   }
