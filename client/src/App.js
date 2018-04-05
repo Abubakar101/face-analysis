@@ -20,6 +20,26 @@ class App extends Component {
     };
   }
 
+  async componentDidMount() {
+    // Get all saved data from DB
+    try {
+      await axios.get("/").then(res => {
+        // let ascendingOrder = e.data.sort((a, b) => a.position - b.position)
+        console.log(res.data)
+        let parsed = {
+          id: res.data.id,
+          faces: JSON.parse(res.data.face),
+          image: res.data.image,
+          favorite: res.data.favorite
+        };
+        this.setState({ savedData: parsed });
+        console.log(parsed);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   // User Input of Image URL
   saveImgLink = async imgUrl => {
     await this.setState({ imgUrl });
@@ -43,14 +63,10 @@ class App extends Component {
       let sortedAPIData = response.data.faces.sort(
         (a, b) => a.face_rectangle.left - b.face_rectangle.left
       );
-      // let faceAttr = sortedAPIData.map(e => e.attributes);
-      console.log(response.data);
       this.setState({
         APIData: sortedAPIData,
         showResults: true
       });
-
-      console.log(this.state.APIData);
     } catch (error) {
       console.log(error);
     }
@@ -58,12 +74,18 @@ class App extends Component {
 
   // Adding saved data into Database - both information and image
   addInfo = async (faces, image) => {
-    let data = { faces, image };
-    console.log(data);
+    let face = JSON.stringify(faces);
+    let data = { face, image };
+
     try {
       await axios.post("/", data).then(res => {
-        // let parsed = JSON.parse(res.data)
-        this.setState({ savedData: [...this.state.savedData, res.data] });
+        let parsed = {
+          id: res.data.id,
+          faces: JSON.parse(res.data.face),
+          image: res.data.image,
+          favorite: res.data.favorite
+        };
+        this.setState({ savedData: [...this.state.savedData, parsed] });
         console.log("backend saved Data", this.state.savedData);
       });
     } catch (error) {
@@ -157,25 +179,32 @@ class App extends Component {
   //   console.log(error);
   // }
   // };
-  savedBtnToggle = () => {
+
+  // Toggling the views between "API results" and "Saved Data Results"
+  toggleResults = () => {
+    this.setState({ showSavedResults: !this.state.showSavedResults });
+  };
+
+  showResultsToggle = () => {
     return (
       <Row className="btnRow">
         <Col className="s12 offset-s12">
           {this.state.showSavedResults ? (
             <a className="btn-floating btn-large waves-effect waves-light red ">
-              <i className="material-icons" onClick={() => this.delInfo()}>
-                delete_forever
+              <i
+                className="material-icons"
+                onClick={() => this.toggleResults()}
+              >
+                search
               </i>
             </a>
           ) : (
             <a className="btn-floating btn-large waves-effect waves-light green ">
               <i
                 className="material-icons"
-                onClick={() =>
-                  this.addInfo(this.state.APIData, this.state.imgUrl)
-                }
+                onClick={() => this.toggleResults()}
               >
-                add
+                collections_bookmark
               </i>
             </a>
           )}
@@ -183,13 +212,12 @@ class App extends Component {
       </Row>
     );
   };
-  render() {
-    // debugger;
-    // console.log(this.state.APIData);
 
+  render() {
+    console.log(this.state.APIData)
     return (
       <div className="app">
-        <Nav toggleResults={this.toggleResults} />
+        <Nav />
 
         {this.state.imgUrl.length > 0 ? (
           <img src={this.state.imgUrl} id="personImg" alt="" />
@@ -198,14 +226,26 @@ class App extends Component {
         )}
         <InputForm saveImgLink={this.saveImgLink} />
 
-        {this.state.showResults ? this.savedBtnToggle() : ""}
+        {this.state.showResults ? this.showResultsToggle() : ""}
+
         {this.state.showResults ? (
-          <Results
-            APIData={this.state.APIData}
-            showResults={this.state.showResults}
-            imgUrl={this.state.imgUrl}
-            showSavedResults={this.state.showSavedResults}
-          />
+          !this.state.showSavedResults ? (
+            <Results
+              resultsData={this.state.APIData}
+              imgUrl={this.state.imgUrl}
+              showResults={this.state.showResults}
+              addInfo={this.addInfo}
+              showSavedResults={this.state.showSavedResults}
+            />
+          ) : (
+            <Results
+              resultsData={this.state.savedData}
+              imgUrl={this.state.savedData.image}
+              imgUrl={this.state.savedData.image}
+              delInfo={this.delInfo}
+              showSavedResults={this.state.showSavedResults}
+            />
+          )
         ) : (
           ""
         )}

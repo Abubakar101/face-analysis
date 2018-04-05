@@ -1,0 +1,6 @@
+create table DATAS (
+  ID serial,
+  FACE TEXT,
+  IMAGE VARCHAR(100),
+  FAVORITE BOOLEAN
+)

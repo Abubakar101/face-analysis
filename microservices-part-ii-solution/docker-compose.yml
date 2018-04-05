@@ -1,0 +1,49 @@
+version: '3'
+
+services:
+  eureka:
+      image: anapsix/alpine-java:8_jdk_unlimited
+      ports:
+        - '8761:8761'
+      working_dir: /eureka-server
+      volumes:
+        - ./eureka-server:/eureka-server:cached
+      command: './gradlew bootRun'
+      environment:
+        - GRADLE_USER_HOME=cache
+        - SPRING_PROFILES_ACTIVE=dev
+  api-gateway:
+      image: anapsix/alpine-java:8_jdk_unlimited
+      ports:
+        - '8080:8080'
+      working_dir: /api-gateway
+      volumes:
+        - ./api-gateway:/api-gateway:cached
+      depends_on:
+        - eureka
+      command: './gradlew bootRun'
+      environment:
+        - GRADLE_USER_HOME=cache
+        - SPRING_PROFILES_ACTIVE=dev
+  datas-api:
+        image: anapsix/alpine-java:8_jdk_unlimited
+        ports:
+          - '8081:8081'
+        working_dir: /datas-api
+        volumes:
+          - ./datas-api:/datas-api:cached
+        depends_on:
+          - eureka
+          - postgresdev
+        command: './gradlew bootRun'
+        environment:
+          - GRADLE_USER_HOME=cache
+          - SPRING_PROFILES_ACTIVE=dev
+  postgresdev:
+      image: postgres
+      ports:
+       - "5432:5432"
+      environment:
+       - POSTGRES_PASSWORD=password
+       - POSTGRES_USER=postgres
+       - POSTGRES_DB=pgdev
