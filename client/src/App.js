@@ -37,7 +37,7 @@ class App extends Component {
         })
 
         this.setState({ savedData: parsed });
-        console.log(this.state.savedData);
+        // console.log(this.state.savedData);
       });
     } catch (error) {
       console.log(error);
@@ -106,7 +106,7 @@ class App extends Component {
             savedData: this.state.savedData.filter(e => e.id !== id)
           });
         }
-        console.log(res);
+        // console.log(res);
         console.log("DELETE Request SENT");
       });
     } catch (error) {
@@ -218,8 +218,8 @@ class App extends Component {
   };
 
   render() {
-    console.log(this.state.APIData)
-    console.log(...this.state.savedData)
+    // console.log(this.state.APIData)
+    // console.log(...this.state.savedData)
     return (
       <div className="app">
         <Nav />
@@ -244,7 +244,6 @@ class App extends Component {
           ) : (
             <SavedResults
               resultsData={this.state.savedData}
-              imgUrl={this.state.savedData.image}
               delInfo={this.delInfo}
               showSavedResults={this.state.showSavedResults}
             />
