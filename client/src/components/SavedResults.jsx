@@ -11,13 +11,6 @@ class SavedResults extends Component {
     };
   }
 
-  //   shouldComponentUpdate(nextProps, nextState) {
-  //     if (this.props.isFavorite !== nextProps) {
-  //       return true;
-  //     }
-  //     return false;
-  //   }
-
   //   Charts
   createCanvas = (id, type, labels, label, data) => {
     return (
@@ -60,12 +53,16 @@ class SavedResults extends Component {
           backgroundImage: `url(${e.image})`
         };
 
-        console.log(e);
         let favClassName = `btn-floating btn-small waves-effect waves-light right ${
           e.favorite ? "green" : "grey"
         }`;
+
+        let changeDelColor =
+          this.state.delID === e.id
+            ? { backgroundColor: `#ff000036` }
+            : { backgroundColor: `rgb(255, 245, 238, 0.1)` };
         return (
-          <Col s={4} key={i} id={e.id}>
+          <Col s={4} key={i} id={e.id} style={changeDelColor}>
             <a className={favClassName}>
               <i
                 className="material-icons"
@@ -132,7 +129,6 @@ class SavedResults extends Component {
   };
 
   render() {
-    console.log(this.props.resultsData);
     let delClassName = `btn-floating btn-large waves-effect waves-light red ${
       this.state.delID ? "" : "disabled"
     }`;

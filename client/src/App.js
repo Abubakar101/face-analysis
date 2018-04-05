@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-// import { BrowserRouter as Switch } from "react-router-dom";
 import { Col, Row } from "react-materialize";
 import "./App.css";
 import axios from "axios";
@@ -18,12 +17,16 @@ class App extends Component {
       imgUrl: "",
       showResults: false,
       showSavedResults: false
-      // isFavorite: false,
     };
   }
 
   async componentDidMount() {
     // Get all saved data from DB
+    this.getDBInfo();
+  }
+
+  // Getting data from  database
+  getDBInfo = async () => {
     try {
       await axios.get("/datas").then(res => {
         const parsed = res.data.map(e => {
@@ -40,7 +43,7 @@ class App extends Component {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   // User Input of Image URL
   saveImgLink = async imgUrl => {
@@ -88,7 +91,6 @@ class App extends Component {
           favorite: res.data.favorite
         };
         this.setState({ savedData: [...this.state.savedData, parsed] });
-        console.log("backend saved Data", this.state.savedData);
       });
     } catch (error) {
       console.log(error);
@@ -97,7 +99,6 @@ class App extends Component {
 
   // Deleting the saved data from Database
   delInfo = async id => {
-    console.log("App Getting ID ", id);
     try {
       await axios.delete(`/${id}`).then(res => {
         if (res.data === "OK") {
@@ -105,7 +106,7 @@ class App extends Component {
             savedData: this.state.savedData.filter(e => e.id !== id)
           });
         }
-
+        // reloading the window when there's no more saved data
         if (!this.state.savedData[0]) {
           window.location.reload();
         }
@@ -121,7 +122,8 @@ class App extends Component {
     let isFavorite = !fav;
     try {
       await axios.patch(`/${id}`, { favorite: isFavorite }).then(e => {
-        console.log("Position Updated");
+        // Calling get request from database with updated information
+        this.getDBInfo();
       });
     } catch (error) {
       console.log(error);
@@ -162,8 +164,6 @@ class App extends Component {
   };
 
   render() {
-    // console.log(this.state.APIData)
-    // console.log(...this.state.savedData)
     return (
       <div className="app">
         <Nav />

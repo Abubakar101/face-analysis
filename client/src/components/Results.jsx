@@ -3,12 +3,14 @@ import { Col, Row, CardPanel } from "react-materialize";
 import Charts from "../Charts";
 
 class Results extends Component {
+  // Creating charts
   createCanvas = (id, type, labels, label, data) => {
     return (
       <Charts id={id} type={type} labels={labels} label={label} data={data} />
     );
   };
 
+  // Showing API search values
   renderValues = () => {
     return this.props.APIData.map((e, i) => {
       let styles = {
