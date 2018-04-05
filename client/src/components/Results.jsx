@@ -23,7 +23,7 @@ class Results extends Component {
       };
 
       return (
-        <Col s={4} key={i}>
+        <Col s={12} m={6} l={4} key={i}>
           <CardPanel className="teal lighten-4 black-text">
             <div style={styles} />
             <h6>Age: {e.attributes.age.value}</h6>
@@ -74,7 +74,7 @@ class Results extends Component {
   render() {
     return (
       <Row className="resultsRow">
-        <Col className="s12 offset-s12">
+        <Col className="offset-s12">
           <a className="btn-floating btn-large waves-effect waves-light green ">
             <i
               className="material-icons"

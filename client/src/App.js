@@ -137,7 +137,7 @@ class App extends Component {
   showResultsToggle = () => {
     return (
       <Row className="btnRow">
-        <Col className="s12 offset-s12">
+        <Col className="offset-s12">
           {this.state.showSavedResults ? (
             <a className="btn-floating btn-large waves-effect waves-light green ">
               <i

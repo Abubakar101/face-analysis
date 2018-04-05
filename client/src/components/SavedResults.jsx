@@ -61,7 +61,7 @@ class SavedResults extends Component {
             ? { backgroundColor: `#ff000036` }
             : { backgroundColor: `rgb(255, 245, 238, 0.1)` };
         return (
-          <Col s={4} key={i} id={e.id} style={changeDelColor}>
+          <Col s={12} m={6} l={4} key={i} id={e.id} style={changeDelColor}>
             <a className={favClassName}>
               <i
                 className="material-icons"
@@ -134,7 +134,7 @@ class SavedResults extends Component {
 
     return (
       <Row className="resultsRow">
-        <Col className="s12 offset-s12">
+        <Col className="offset-s12">
           <a className={delClassName}>
             <i
               className="material-icons"
