@@ -38,3 +38,8 @@ There would be different departments to solve the problems without interfering w
 
 ## How you would maintain such a project with costs considerations in mind.
 "There are many possibilities such as that we could work with retails stores to increase their sales based on the customers' body language and behaviors inside the store."
+
+
+--
+### Features that can be added.
+- Select multiple cards to delete - working on
