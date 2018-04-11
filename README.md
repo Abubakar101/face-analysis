@@ -42,5 +42,6 @@ There would be different departments to solve the problems without interfering w
 
 ---
 ### Features that can be added.
-- Select multiple cards to delete - working on
-- User authentication and authorization 
+- [X] Select | Unselect multiple cards to delete
+- User authentication and authorization - using firebase 
+- Same image sizes
