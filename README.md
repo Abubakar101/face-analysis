@@ -46,3 +46,4 @@ There would be different departments to solve the problems without interfering w
 - User authentication and authorization - using firebase 
 - Same image sizes
 - Able to upload Photos
+- Push it to AWS
