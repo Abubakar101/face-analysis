@@ -100,17 +100,19 @@ class App extends Component {
   // Deleting the saved data from Database
   delInfo = async id => {
     try {
-      await axios.delete(`/datas/${id}`).then(res => {
-        if (res.data === "OK") {
+      for (let index of id) {
+        let response = await axios.delete(`/datas/${index}`);
+
+        if (response.data === "OK") {
           this.setState({
-            savedData: this.state.savedData.filter(e => e.id !== id)
+            savedData: this.state.savedData.filter(e => e.id !== index)
           });
         }
         // reloading the window when there's no more saved data
         if (!this.state.savedData[0]) {
           window.location.reload();
         }
-      });
+      }
     } catch (error) {
       console.log(error);
     }

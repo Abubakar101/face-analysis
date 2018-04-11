@@ -6,7 +6,7 @@ class SavedResults extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      delID: null,
+      delID: [],
       isFavorite: false
     };
   }
@@ -28,10 +28,18 @@ class SavedResults extends Component {
   //   Saving delID to pass down to to delete function
   saveID = delID => {
     if (delID) {
-      this.setState({ delID });
-    } else {
-      this.setState({ delID: null });
-    }
+      // Making sure that the ID already isn't there to prevent adding dublicate values.
+      if (!this.state.delID.includes(delID)) {
+        this.setState({ delID: [...this.state.delID, delID] });
+
+        // Unselecting by removing Id from the state.
+      } else {
+        let sliceID = [...this.state.delID];
+        let index = sliceID.indexOf(delID);
+        sliceID.splice(index, 1);
+        this.setState({ delID: sliceID });
+      }
+    } 
   };
 
   setFav = () => {
@@ -57,7 +65,7 @@ class SavedResults extends Component {
         }`;
 
         let changeDelColor =
-          this.state.delID === e.id
+          this.state.delID.includes(e.id)
             ? { backgroundColor: `#ff000036` }
             : { backgroundColor: `rgb(255, 245, 238, 0.1)` };
         return (
@@ -129,7 +137,7 @@ class SavedResults extends Component {
 
   render() {
     let delClassName = `btn-floating btn-large waves-effect waves-light red ${
-      this.state.delID ? "" : "disabled"
+      this.state.delID.length ? "" : "disabled"
     }`;
 
     return (
