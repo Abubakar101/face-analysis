@@ -169,8 +169,17 @@ class App extends Component {
     return (
       <div className="app">
         <Nav />
-
-        <Cloudinary saveImgLink={this.saveImgLink} imgUrl={this.state.imgUrl} />
+        <div id="reactDragDropContainer">
+          <div id="reactDragDropTitle">
+            <p>Drop an image or click</p>
+            <p>to select a file to upload!</p>
+            <div id="curvedarrow"></div>
+          </div>
+          <Cloudinary
+            saveImgLink={this.saveImgLink}
+            imgUrl={this.state.imgUrl}
+          />
+        </div>
         <InputForm saveImgLink={this.saveImgLink} />
 
         {this.state.savedData[0] ? this.showResultsToggle() : ""}

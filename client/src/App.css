@@ -9,8 +9,49 @@
   background: #181818;
 }
 
+#reactDragDropContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 5px;
+}
+
+#reactDragDropTitle > * {
+  font-family: "Qwigley", cursive;
+  font-size: 30px;
+  margin: 0;
+  line-height: 30px;
+}
+
+/* https://css-tricks.com/examples/ShapesOfCSS/ */
+#curvedarrow {
+  position: relative;
+  width: 0;
+  height: 0;
+  border-top: 9px solid transparent;
+  border-right: 9px solid black;
+  transform: rotate(10deg);
+  -moz-transform: rotate(10deg);
+  -ms-transform: rotate(10deg);
+  -o-transform: rotate(10deg);
+}
+#curvedarrow:after {
+  content: "";
+  position: absolute;
+  border: 0 solid transparent;
+  border-top: 3px solid black;
+  border-radius: 20px 0 0 0;
+  top: -12px;
+  left: -9px;
+  width: 12px;
+  height: 12px;
+  transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+}
+/* ^^^^ */
 #reactDropZone {
-  /* width: 220px !important; */
   height: 220px !important;
   margin: 10px;
   cursor: pointer;
@@ -21,11 +62,9 @@
 
 #personImg,
 #blankImg {
-  /* margin: 10px; */
   display: block;
   max-width: 430px;
   max-height: 400px;
-  /* width: auto; */
   height: auto;
 }
 #blankImg {
