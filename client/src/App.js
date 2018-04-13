@@ -7,6 +7,7 @@ import Nav from "./components/Nav";
 import Results from "./components/Results";
 import SavedResults from "./components/SavedResults";
 import InputForm from "./components/InputForm";
+import Cloudinary from "./components/Cloudinary";
 
 class App extends Component {
   constructor(props) {
@@ -168,12 +169,17 @@ class App extends Component {
     return (
       <div className="app">
         <Nav />
-
-        {this.state.imgUrl.length > 0 ? (
-          <img src={this.state.imgUrl} id="personImg" alt="" />
-        ) : (
-          <img src={"/images/littleboy.jpg"} id="blankImg" alt="" />
-        )}
+        <div id="reactDragDropContainer">
+          <div id="reactDragDropTitle">
+            <p>Drop an image or click</p>
+            <p>to select a file to upload!</p>
+            <div id="curvedarrow"></div>
+          </div>
+          <Cloudinary
+            saveImgLink={this.saveImgLink}
+            imgUrl={this.state.imgUrl}
+          />
+        </div>
         <InputForm saveImgLink={this.saveImgLink} />
 
         {this.state.savedData[0] ? this.showResultsToggle() : ""}
