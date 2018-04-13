@@ -49,6 +49,6 @@ There would be different departments to solve the problems without interfering w
 
 --- 
 #### Logs
-- [April 13, 2018] Able to upload Photos
+- [April 13, 2018] Drag and Drop Photos
 - [April 11, 2018] Select | Unselect multiple cards to delete 
 
