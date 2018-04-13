@@ -7,6 +7,7 @@ import Nav from "./components/Nav";
 import Results from "./components/Results";
 import SavedResults from "./components/SavedResults";
 import InputForm from "./components/InputForm";
+import Cloudinary from "./components/Cloudinary";
 
 class App extends Component {
   constructor(props) {
@@ -175,6 +176,7 @@ class App extends Component {
           <img src={"/images/littleboy.jpg"} id="blankImg" alt="" />
         )}
         <InputForm saveImgLink={this.saveImgLink} />
+        <Cloudinary saveImgLink={this.saveImgLink} />
 
         {this.state.savedData[0] ? this.showResultsToggle() : ""}
 
