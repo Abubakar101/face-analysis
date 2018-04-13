@@ -47,3 +47,4 @@ There would be different departments to solve the problems without interfering w
 - Same image sizes
 - Able to upload Photos
 - Push it to AWS
+- Choose the right graphs (First One)
