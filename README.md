@@ -45,8 +45,8 @@ There would be different departments to solve the problems without interfering w
 - User authentication and authorization - using firebase 
 - Same image sizes
 - Push it to AWS
+- Choose the right graphs (First One)
 
---- 
 #### Logs
 - [April 13, 2018] - Drag 'n Drop Images
 - [April 11, 2018] - Select | Unselect multiple cards to delete 
