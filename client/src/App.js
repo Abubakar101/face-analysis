@@ -176,7 +176,7 @@ class App extends Component {
           <img src={"/images/littleboy.jpg"} id="blankImg" alt="" />
         )}
         <InputForm saveImgLink={this.saveImgLink} />
-        <Cloudinary saveImgLink={this.saveImgLink} />
+        <Cloudinary saveImgLink={this.saveImgLink} imgUrl={this.state.imgUrl}/>
 
         {this.state.savedData[0] ? this.showResultsToggle() : ""}
 

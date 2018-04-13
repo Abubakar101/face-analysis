@@ -2,11 +2,9 @@ import React, { Component } from "react";
 import ReactDropzone from "./ReactDropzone";
 import request from "superagent";
 
-
 const CLOUDINARY_UPLOAD_PRESET = "vizmpuyp";
 const CLOUDINARY_UPLOAD_URL =
   "https://api.cloudinary.com/v1_1/digimonkey/upload";
-
 
 class Cloudinary extends Component {
   constructor(props) {
@@ -45,17 +43,11 @@ class Cloudinary extends Component {
     });
   };
   render() {
-    console.log(this.state.uploadedFileCloudinaryUrl);
     return (
-      <div>
-        <ReactDropzone onImageDrop={this.onImageDrop} />
-        {this.state.uploadedFileCloudinaryUrl === "" ? null : (
-          <div>
-            <p>{this.state.uploadedFile.name}</p>
-            <img src={this.state.uploadedFileCloudinaryUrl} alt="" />
-          </div>
-        )}
-      </div>
+      <ReactDropzone
+        onImageDrop={this.onImageDrop}
+        imgUrl={this.props.imgUrl}
+      />
     );
   }
 }
