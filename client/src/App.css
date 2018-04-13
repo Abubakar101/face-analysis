@@ -9,17 +9,33 @@
   background: #181818;
 }
 
+#reactDropZone {
+  /* width: 220px !important; */
+  height: 220px !important;
+  margin: 10px;
+  cursor: pointer;
+  width: auto !important;
+  max-width: 430px !important;
+  height: auto !important;
+}
+
 #personImg,
 #blankImg {
-  margin: 10px;
+  /* margin: 10px; */
   display: block;
   max-width: 430px;
   max-height: 400px;
-  width: auto;
+  /* width: auto; */
   height: auto;
 }
 #blankImg {
   max-height: 200px;
+  width: auto;
+  margin: 10px;
+}
+
+#personImg {
+  width: 100%;
 }
 
 .inputBtn {
