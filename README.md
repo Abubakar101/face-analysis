@@ -42,8 +42,11 @@ There would be different departments to solve the problems without interfering w
 
 ---
 ### Features that can be added.
-- [X] Select | Unselect multiple cards to delete - April 11, 2018
 - User authentication and authorization - using firebase 
 - Same image sizes
-- Able to upload Photos
 - Push it to AWS
+
+--- 
+#### Logs
+- [April 13, 2018] - Drag 'n Drop Images
+- [April 11, 2018] - Select | Unselect multiple cards to delete 
