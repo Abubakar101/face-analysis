@@ -8,10 +8,7 @@ class Camera extends Component {
   componentDidMount() {
     const constraints = {
       audio: false,
-      video: {
-        width: { ideal: 426 },
-        height: { ideal: 426}
-      }
+      video: true
     };
 
     navigator.mediaDevices
@@ -24,6 +21,7 @@ class Camera extends Component {
     const video = document.querySelector("#video");
     window.stream = stream; // make stream available to browser console
     video.srcObject = stream;
+    video.play();
   };
 
   handleError(error) {
@@ -31,7 +29,7 @@ class Camera extends Component {
   }
 
   render() {
-    return <video id="video" autoPlay />;
+    return <video id="video" />;
   }
 }
 

@@ -6,7 +6,8 @@ import axios from "axios";
 import Nav from "./components/Nav";
 import Results from "./components/Results";
 import SavedResults from "./components/SavedResults";
-import ImageLinkInputForm from "./components/ImageLinkInputForm";
+import ImageLinkForm from "./components/ImageLinkForm";
+import ImageUploadForm from "./components/ImageUploadForm";
 import Camera from "./components/Camera";
 import Cloudinary from "./components/Cloudinary";
 
@@ -171,7 +172,7 @@ class App extends Component {
       <div className="app">
         <Nav />
         <div id="reactDragDropContainer">
-          <div id="reactDragDropTitle">
+          <div id="reactDragDropTitle" className="Qwigley">
             <p>Drop an image or click</p>
             <p>to select a file to upload!</p>
             <div id="curvedarrow"></div>
@@ -181,8 +182,7 @@ class App extends Component {
             imgUrl={this.state.imgUrl}
           />
         </div>
-        <ImageLinkInputForm saveImgLink={this.saveImgLink} />
-        <Camera  />
+        <ImageLinkForm saveImgLink={this.saveImgLink} />
 
         {this.state.savedData[0] ? this.showResultsToggle() : ""}
 

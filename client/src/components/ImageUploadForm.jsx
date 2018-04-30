@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { Button } from "react-materialize";
 
-class ImageLinkInputForm extends Component {
+class ImageUploadForm extends Component {
   render() {
     return (
       <form
-        id="imageLink"
+        id="imageUpload"
         onSubmit={e => {
           e.preventDefault();
 
@@ -26,4 +26,4 @@ class ImageLinkInputForm extends Component {
     );
   }
 }
-export default ImageLinkInputForm;
+export default ImageUploadForm;

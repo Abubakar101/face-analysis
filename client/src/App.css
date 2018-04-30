@@ -4,20 +4,31 @@
   align-items: center;
 }
 
+.Qwigley{
+  font-family: "Qwigley", cursive;
+}
+
 .navbar-fixed {
   width: 100%;
   background: #181818;
 }
+
+/* #topContainer{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+} */
 
 #reactDragDropContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 5px;
+  /* margin-right: 10%; */
 }
 
 #reactDragDropTitle > * {
-  font-family: "Qwigley", cursive;
   font-size: 30px;
   margin: 0;
   line-height: 30px;
@@ -60,6 +71,30 @@
   height: auto !important;
 }
 
+/* #imageUpload{
+  margin: 7%;
+} */
+
+#imageInputFormContainer{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 43%;
+}
+#imageLink{
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#imageLinkInput{
+  width: 70%;
+}
+#imageUpload{
+  font-size: 22px;
+}
+
 #personImg,
 #blankImg {
   display: block;
@@ -79,7 +114,8 @@
 }
 
 .inputBtn {
-  width: 100%;
+  width: 43%;
+  margin: 9px;
 }
 
 .chartPanel {
