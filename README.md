@@ -46,6 +46,7 @@ There would be different departments to solve the problems without interfering w
 - Same image sizes
 - Push it to AWS
 - Choose the right graphs (First One)
+- Able to upload photos through application.
 
 #### Logs
 - [April 13, 2018] - Drag 'n Drop Images
