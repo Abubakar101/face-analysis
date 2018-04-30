@@ -7,6 +7,7 @@ import Nav from "./components/Nav";
 import Results from "./components/Results";
 import SavedResults from "./components/SavedResults";
 import ImageLinkInputForm from "./components/ImageLinkInputForm";
+import Camera from "./components/Camera";
 import Cloudinary from "./components/Cloudinary";
 
 class App extends Component {
@@ -181,6 +182,7 @@ class App extends Component {
           />
         </div>
         <ImageLinkInputForm saveImgLink={this.saveImgLink} />
+        <Camera  />
 
         {this.state.savedData[0] ? this.showResultsToggle() : ""}
 
