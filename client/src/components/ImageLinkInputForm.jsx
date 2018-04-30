@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Button } from "react-materialize";
 
-class InputForm extends Component {
+class ImageLinkInputForm extends Component {
   render() {
     return (
       <form
@@ -26,4 +26,4 @@ class InputForm extends Component {
     );
   }
 }
-export default InputForm;
+export default ImageLinkInputForm;

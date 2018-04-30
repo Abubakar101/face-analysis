@@ -6,7 +6,7 @@ import axios from "axios";
 import Nav from "./components/Nav";
 import Results from "./components/Results";
 import SavedResults from "./components/SavedResults";
-import InputForm from "./components/InputForm";
+import ImageLinkInputForm from "./components/ImageLinkInputForm";
 import Cloudinary from "./components/Cloudinary";
 
 class App extends Component {
@@ -180,7 +180,7 @@ class App extends Component {
             imgUrl={this.state.imgUrl}
           />
         </div>
-        <InputForm saveImgLink={this.saveImgLink} />
+        <ImageLinkInputForm saveImgLink={this.saveImgLink} />
 
         {this.state.savedData[0] ? this.showResultsToggle() : ""}
 
