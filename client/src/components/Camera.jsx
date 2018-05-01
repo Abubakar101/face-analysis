@@ -1,10 +1,7 @@
 import React, { Component } from "react";
+import { Button } from "react-materialize";
+import ImageUploadForm from "./ImageUploadForm";
 class Camera extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
   componentDidMount() {
     const constraints = {
       audio: false,
@@ -27,12 +24,45 @@ class Camera extends Component {
     video.play();
   };
 
-  handleError(error) {
+  handleError = error => {
     console.log("navigator.getUserMedia error: ", error);
-  }
+  };
+
+  takePhoto = () => {
+    const video = document.querySelector("video");
+    let canvas;
+
+    const img = document.querySelector("img") || document.createElement("img");
+    let context;
+    const width = video.offsetWidth,
+      height = video.offsetHeight;
+
+    canvas = canvas || document.createElement("canvas");
+    canvas.width = width;
+    canvas.height = height;
+
+    context = canvas.getContext("2d");
+    context.drawImage(video, 0, 0, width, height);
+
+    img.src = canvas.toDataURL("image/png");
+    document.body.appendChild(img);
+
+    this.props.toggleCameraState();
+  };
 
   render() {
-    return <video id="video" />;
+    return (
+      <React.Fragment>
+        <video id="video" />
+        <a
+          id="uploadImageBtn"
+          className="btn-floating btn-large"
+          onClick={this.takePhoto}
+        >
+          <i className="material-icons">add_a_photo</i>
+        </a>
+      </React.Fragment>
+    );
   }
 }
 

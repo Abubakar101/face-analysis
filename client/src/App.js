@@ -142,7 +142,7 @@ class App extends Component {
 
   // Toggling the Camera state to show camera
   toggleCameraState = () => {
-    this.setState({ showCamera: true });
+    this.setState({ showCamera: !this.state.showCamera });
     console.log(this.state.showCamera);
   };
 
@@ -198,7 +198,7 @@ class App extends Component {
             />
           </React.Fragment>
         ) : (
-          <Camera />
+          <Camera toggleCameraState={this.toggleCameraState}/>
         )}
 
         {this.state.savedData[0] ? this.showResultsToggle() : ""}

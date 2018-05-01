@@ -13,15 +13,9 @@ class ImageUploadForm extends Component {
           e.target.userInput.value = "";
         }}
       >
-        <input
-          name="userInput"
-          type="url"
-          placeholder="Image link here"
-        />
-
-        <Button waves='light' className="inputBtn" type="submit" value="submit">
-          Submit
-        </Button>
+      <a id="uploadImageBtn" className="btn-floating btn-large" onClick={this.props.toggleCameraState}>
+      <i className="material-icons">add_a_photo</i>
+    </a>
       </form>
     );
   }
