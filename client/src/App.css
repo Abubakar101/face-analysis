@@ -95,6 +95,10 @@
   font-size: 22px;
 }
 
+#uploadImageBtn:hover{
+  background: darkgreen;
+}
+
 #personImg,
 #blankImg {
   display: block;
@@ -106,6 +110,9 @@
   max-height: 200px;
   width: auto;
   margin: 10px;
+}
+#blankImg:hover {
+  opacity: 0.5;
 }
 
 #personImg {

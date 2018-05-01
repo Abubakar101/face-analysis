@@ -23,10 +23,7 @@ class ImageLinkForm extends Component {
           <span id="imageUpload" className="Qwigley">
             OR
           </span>
-          <a
-            className="btn-floating btn-large waves-effect waves-light "
-            onClick={this.props.toggleCameraState}
-          >
+          <a id="uploadImageBtn" className="btn-floating" onClick={this.props.toggleCameraState}>
             <i className="material-icons">add_a_photo</i>
           </a>
         </div>
