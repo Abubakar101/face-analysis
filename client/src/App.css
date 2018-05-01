@@ -139,3 +139,7 @@
 .infoCards {
   cursor: pointer;
 }
+
+#cameraBtns{
+display: flex;
+}

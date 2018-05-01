@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Button } from "react-materialize";
 import ImageUploadForm from "./ImageUploadForm";
+
 class Camera extends Component {
   componentDidMount() {
     const constraints = {
@@ -46,21 +47,32 @@ class Camera extends Component {
 
     img.src = canvas.toDataURL("image/png");
     document.body.appendChild(img);
-
-    this.props.toggleCameraState();
   };
 
   render() {
     return (
       <React.Fragment>
         <video id="video" />
-        <a
-          id="uploadImageBtn"
-          className="btn-floating btn-large"
-          onClick={this.takePhoto}
-        >
-          <i className="material-icons">add_a_photo</i>
-        </a>
+        <ul id="cameraBtns">
+          <li>
+            <a
+              id="uploadImageBtn"
+              className="btn-floating btn-large"
+              onClick={this.takePhoto}
+            >
+              <i className="material-icons">add_a_photo</i>
+            </a>
+          </li>
+          <li>
+            <a
+              id="uploadImageBtn"
+              className="btn-floating"
+              onClick={this.props.toggleCameraState}
+            >
+              <i className="material-icons">backspace</i>
+            </a>
+          </li>
+        </ul>
       </React.Fragment>
     );
   }
