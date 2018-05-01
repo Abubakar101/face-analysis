@@ -8,7 +8,10 @@ class Camera extends Component {
   componentDidMount() {
     const constraints = {
       audio: false,
-      video: true
+      video: {
+        width: { ideal: 400 },
+        height: { ideal: 400 }
+      }
     };
 
     navigator.mediaDevices
