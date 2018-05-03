@@ -7,8 +7,6 @@ import Nav from "./components/Nav";
 import Results from "./components/Results";
 import SavedResults from "./components/SavedResults";
 import ImageLinkForm from "./components/ImageLinkForm";
-import Camera from "./components/Camera";
-import ImageUploadForm from "./components/ImageUploadForm";
 import Cloudinary from "./components/Cloudinary";
 
 class App extends Component {

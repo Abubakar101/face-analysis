@@ -17,6 +17,7 @@ class Cloudinary extends Component {
   }
 
   onImageDrop = files => {
+    console.log(files);
     this.setState({
       uploadedFile: files[0]
     });
@@ -44,11 +45,13 @@ class Cloudinary extends Component {
     });
   };
   render() {
-    console.log();
     return (
       <React.Fragment>
         {this.props.showCamera ? (
-          <Camera toggleCameraState={this.toggleCameraState} />
+          <Camera
+            toggleCameraState={this.props.toggleCameraState}
+            onImageDrop={this.onImageDrop}
+          />
         ) : (
           <ReactDropzone
             onImageDrop={this.onImageDrop}

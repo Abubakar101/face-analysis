@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import { Button } from "react-materialize";
-import ImageUploadForm from "./ImageUploadForm";
 
 class Camera extends Component {
   componentDidMount() {
@@ -31,10 +29,7 @@ class Camera extends Component {
 
   takePhoto = () => {
     const video = document.querySelector("video");
-    let canvas;
-
-    const img = document.querySelector("img") || document.createElement("img");
-    let context;
+    let canvas, context;
     const width = video.offsetWidth,
       height = video.offsetHeight;
 
@@ -45,8 +40,8 @@ class Camera extends Component {
     context = canvas.getContext("2d");
     context.drawImage(video, 0, 0, width, height);
 
-    img.src = canvas.toDataURL("image/png");
-    document.body.appendChild(img);
+    var URL = canvas.toDataURL("image/png");
+    this.props.onImageDrop([URL]);
   };
 
   render() {
