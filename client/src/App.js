@@ -6,7 +6,7 @@ import axios from "axios";
 import Nav from "./components/Nav";
 import Results from "./components/Results";
 import SavedResults from "./components/SavedResults";
-import InputForm from "./components/InputForm";
+import ImageLinkForm from "./components/ImageLinkForm";
 import Cloudinary from "./components/Cloudinary";
 
 class App extends Component {
@@ -17,7 +17,8 @@ class App extends Component {
       savedData: [],
       imgUrl: "",
       showResults: false,
-      showSavedResults: false
+      showSavedResults: false,
+      showCamera: false
     };
   }
 
@@ -137,6 +138,11 @@ class App extends Component {
     this.setState({ showSavedResults: !this.state.showSavedResults });
   };
 
+  // Toggling the Camera state to show camera
+  toggleCameraState = () => {
+    this.setState({ showCamera: !this.state.showCamera });
+  };
+
   showResultsToggle = () => {
     return (
       <Row className="btnRow">
@@ -169,18 +175,30 @@ class App extends Component {
     return (
       <div className="app">
         <Nav />
-        <div id="reactDragDropContainer">
-          <div id="reactDragDropTitle">
-            <p>Drop an image or click</p>
-            <p>to select a file to upload!</p>
-            <div id="curvedarrow"></div>
+
+        <React.Fragment>
+          <div id="reactDragDropContainer">
+            {!this.state.showCamera && (
+              <div id="reactDragDropTitle" className="Qwigley">
+                <p>Drop an image or click</p>
+                <p>to select a file to upload!</p>
+                <div id="curvedarrow" />
+              </div>
+            )}
+            <Cloudinary
+              saveImgLink={this.saveImgLink}
+              imgUrl={this.state.imgUrl}
+              toggleCameraState={this.toggleCameraState}
+              showCamera={this.state.showCamera}
+            />
           </div>
-          <Cloudinary
-            saveImgLink={this.saveImgLink}
-            imgUrl={this.state.imgUrl}
-          />
-        </div>
-        <InputForm saveImgLink={this.saveImgLink} />
+          {!this.state.showCamera && (
+            <ImageLinkForm
+              saveImgLink={this.saveImgLink}
+              toggleCameraState={this.toggleCameraState}
+            />
+          )}
+        </React.Fragment>
 
         {this.state.savedData[0] ? this.showResultsToggle() : ""}
 
