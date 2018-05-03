@@ -44,6 +44,8 @@ class Camera extends Component {
     this.props.onImageDrop([URL]);
   };
 
+  stopStream = () => window.stream.getTracks().forEach(track => track.stop());
+
   render() {
     return (
       <React.Fragment>
@@ -62,7 +64,10 @@ class Camera extends Component {
             <a
               id="uploadImageBtn"
               className="btn-floating"
-              onClick={this.props.toggleCameraState}
+              onClick={e => {
+                this.props.toggleCameraState();
+                this.stopStream();
+              }}
             >
               <i className="material-icons">backspace</i>
             </a>
