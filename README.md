@@ -46,9 +46,9 @@ There would be different departments to solve the problems without interfering w
 - Same image sizes
 - Push it to AWS
 - Choose the right graphs (First One)
-- Able to upload photos through application.
 - Delete image files right away from CLoudinary after using it.
 
 #### Logs
+- [May 03, 2018] - - Able to upload photos through Camera.
 - [April 13, 2018] - Drag 'n Drop Images
 - [April 11, 2018] - Select | Unselect multiple cards to delete 
