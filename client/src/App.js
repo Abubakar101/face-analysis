@@ -141,7 +141,6 @@ class App extends Component {
   // Toggling the Camera state to show camera
   toggleCameraState = () => {
     this.setState({ showCamera: !this.state.showCamera });
-    console.log(this.state.showCamera);
   };
 
   showResultsToggle = () => {
