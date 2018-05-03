@@ -178,28 +178,30 @@ class App extends Component {
     return (
       <div className="app">
         <Nav />
-        {!this.state.showCamera ? (
-          <React.Fragment>
-            <div id="reactDragDropContainer">
+
+        <React.Fragment>
+          <div id="reactDragDropContainer">
+            {!this.state.showCamera && (
               <div id="reactDragDropTitle" className="Qwigley">
                 <p>Drop an image or click</p>
                 <p>to select a file to upload!</p>
                 <div id="curvedarrow" />
               </div>
-              <Cloudinary
-                saveImgLink={this.saveImgLink}
-                imgUrl={this.state.imgUrl}
-              />
-            </div>
-
+            )}
+            <Cloudinary
+              saveImgLink={this.saveImgLink}
+              imgUrl={this.state.imgUrl}
+              toggleCameraState={this.toggleCameraState}
+              showCamera={this.state.showCamera}
+            />
+          </div>
+          {!this.state.showCamera && (
             <ImageLinkForm
               saveImgLink={this.saveImgLink}
               toggleCameraState={this.toggleCameraState}
             />
-          </React.Fragment>
-        ) : (
-          <Camera toggleCameraState={this.toggleCameraState}/>
-        )}
+          )}
+        </React.Fragment>
 
         {this.state.savedData[0] ? this.showResultsToggle() : ""}
 

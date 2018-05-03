@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ReactDropzone from "./ReactDropzone";
+import Camera from "./Camera";
 import request from "superagent";
 
 const CLOUDINARY_UPLOAD_PRESET = "vizmpuyp";
@@ -43,11 +44,18 @@ class Cloudinary extends Component {
     });
   };
   render() {
+    console.log();
     return (
-      <ReactDropzone
-        onImageDrop={this.onImageDrop}
-        imgUrl={this.props.imgUrl}
-      />
+      <React.Fragment>
+        {this.props.showCamera ? (
+          <Camera toggleCameraState={this.toggleCameraState} />
+        ) : (
+          <ReactDropzone
+            onImageDrop={this.onImageDrop}
+            imgUrl={this.props.imgUrl}
+          />
+        )}
+      </React.Fragment>
     );
   }
 }
