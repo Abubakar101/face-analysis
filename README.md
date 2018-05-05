@@ -46,7 +46,7 @@ There would be different departments to solve the problems without interfering w
 - Same image sizes
 - Push it to AWS
 - Choose the right graphs (First One)
-- Delete image files right away from CLoudinary after using it.
+- Remove the Cloudniary API and POST direct to Face++.
 
 #### Logs
 - [May 03, 2018] - - Able to upload photos through Camera.
