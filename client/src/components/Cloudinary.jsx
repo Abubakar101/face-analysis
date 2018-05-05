@@ -22,7 +22,22 @@ class Cloudinary extends Component {
       uploadedFile: files[0]
     });
 
-    this.handleImageUpload(files[0]);
+    var canvas = document.createElement("canvas");
+    var ctx = canvas.getContext("2d");
+    var img = new Image();
+    img.onload = () => {
+      canvas.width = img.width;
+      canvas.height = img.height;
+      ctx.drawImage(img, 0, 0);
+      var data = canvas.toDataURL("image/jpeg");
+      this.props.saveImgLink(data);
+    };
+    img.src = files[0].preview;
+
+    // console.log(img)
+
+    // debugger;
+    // this.handleImageUpload(files[0]);
   };
 
   handleImageUpload = file => {
