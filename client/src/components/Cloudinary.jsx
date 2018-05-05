@@ -1,7 +1,8 @@
 import React, { Component } from "react";
+import request from "superagent";
+
 import ReactDropzone from "./ReactDropzone";
 import Camera from "./Camera";
-import request from "superagent";
 
 const CLOUDINARY_UPLOAD_PRESET = "vizmpuyp";
 const CLOUDINARY_UPLOAD_URL =
@@ -25,23 +26,22 @@ class Cloudinary extends Component {
   };
 
   handleImageUpload = file => {
-    let upload = request
+    request
       .post(CLOUDINARY_UPLOAD_URL)
       .field("upload_preset", CLOUDINARY_UPLOAD_PRESET)
-      .field("file", file);
+      .field("file", file)
+      .end((err, response) => {
+        if (err) {
+          console.error(err);
+        }
 
-    upload.end((err, response) => {
-      if (err) {
-        console.error(err);
-      }
-
-      if (response.body.secure_url !== "") {
-        this.setState({
-          uploadedFileCloudinaryUrl: response.body.secure_url
-        });
-        this.props.saveImgLink(this.state.uploadedFileCloudinaryUrl);
-      }
-    });
+        if (response.body.secure_url !== "") {
+          this.setState({
+            uploadedFileCloudinaryUrl: response.body.secure_url
+          });
+          this.props.saveImgLink(this.state.uploadedFileCloudinaryUrl);
+        }
+      });
   };
   render() {
     return (
