@@ -64,21 +64,16 @@ class App extends Component {
     try {
       if (image_url.includes("base64")) {
         const image_base64 = image_url.split(",")[1];
-        debugger;
-        const response = await axios.post(
-          `${url}?api_key=${api_key}&api_secret=${api_secret}&return_attributes=${return_attributes}`,
-          {
-            data: { image_base64 }
-          }
-        );
-
-        console.log("BODY Post", response);
+        const response = await axios({
+          method: "post",
+          url: `${url}?api_key=${api_key}&api_secret=${api_secret}&return_attributes=${return_attributes}`,
+          data: { image_base64 }
+        });
         this.setAPIData(response);
       } else {
         const response = await axios.post(
           `${url}?api_key=${api_key}&api_secret=${api_secret}&image_url=${image_url}&return_attributes=${return_attributes}`
         );
-        console.log("URL", response);
         this.setAPIData(response);
       }
     } catch (error) {
