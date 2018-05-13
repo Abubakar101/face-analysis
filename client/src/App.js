@@ -10,17 +10,14 @@ import ImageLinkForm from "./components/ImageLinkForm";
 import Cloudinary from "./components/Cloudinary";
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      APIData: [],
-      savedData: [],
-      imgUrl: "",
-      showResults: false,
-      showSavedResults: false,
-      showCamera: false
-    };
-  }
+  state = {
+    APIData: [],
+    savedData: [],
+    imgUrl: "",
+    showResults: false,
+    showSavedResults: false,
+    showCamera: false
+  };
 
   async componentDidMount() {
     // Get all saved data from DB

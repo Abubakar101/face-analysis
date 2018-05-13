@@ -9,19 +9,11 @@ const CLOUDINARY_UPLOAD_URL =
   "https://api.cloudinary.com/v1_1/digimonkey/upload";
 
 class Cloudinary extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      uploadedFileCloudinaryUrl: ""
-    };
-  }
+  state = {
+    uploadedFileCloudinaryUrl: ""
+  };
 
   onImageDrop = files => {
-    this.setState({
-      uploadedFile: files[0]
-    });
-
     this.handleImageUpload(files[0]);
   };
 
