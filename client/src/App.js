@@ -62,34 +62,21 @@ class App extends Component {
       return_attributes = `gender,age,emotion,ethnicity,beauty`;
 
     try {
-      if (image_url.includes("base64")) {
-        const image_base64 = image_url.split(",")[1];
-        const response = await axios({
-          method: "post",
-          url: `${url}?api_key=${api_key}&api_secret=${api_secret}&return_attributes=${return_attributes}`,
-          data: { image_base64 }
-        });
-        this.setAPIData(response);
-      } else {
-        const response = await axios.post(
-          `${url}?api_key=${api_key}&api_secret=${api_secret}&image_url=${image_url}&return_attributes=${return_attributes}`
-        );
-        this.setAPIData(response);
-      }
+      const response = await axios.post(
+        `${url}?api_key=${api_key}&api_secret=${api_secret}&image_url=${image_url}&return_attributes=${return_attributes}`
+      );
+
+      // Sorting the faces from left to right.
+      let sortedAPIData = response.data.faces.sort(
+        (a, b) => a.face_rectangle.left - b.face_rectangle.left
+      );
+      this.setState({
+        APIData: sortedAPIData,
+        showResults: true
+      });
     } catch (error) {
       console.log(error);
     }
-  };
-
-  setAPIData = response => {
-    // Sorting the faces from left to right.
-    let sortedAPIData = response.data.faces.sort(
-      (a, b) => a.face_rectangle.left - b.face_rectangle.left
-    );
-    this.setState({
-      APIData: sortedAPIData,
-      showResults: true
-    });
   };
 
   // Adding saved data into Database - both information and image

@@ -4,6 +4,8 @@ import request from "superagent";
 import ReactDropzone from "./ReactDropzone";
 import Camera from "./Camera";
 
+// import logo from './logo.png';
+
 const CLOUDINARY_UPLOAD_PRESET = "vizmpuyp";
 const CLOUDINARY_UPLOAD_URL =
   "https://api.cloudinary.com/v1_1/digimonkey/upload";
@@ -33,7 +35,7 @@ class Cloudinary extends Component {
       this.props.saveImgLink(data);
     };
     img.src = files[0].preview;
-
+    // this.props.saveImgLink(img)
     // console.log(img)
 
     // debugger;
