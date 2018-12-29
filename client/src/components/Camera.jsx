@@ -1,67 +1,54 @@
 import React, { Component } from "react";
-import takePhoto from './camera/takePhoto'
+import takePhoto from "./camera/takePhoto";
+import stream from "./camera/stream";
 
 class Camera extends Component {
+  state = {
+    id: "video"
+  };
+
   componentDidMount() {
-    const constraints = {
-      audio: false,
-      video: {
-        width: { ideal: 400 },
-        height: { ideal: 400 }
-      }
-    };
-
-    navigator.mediaDevices
-      .getUserMedia(constraints)
-      .then(this.handleSuccess)
-      .catch(this.handleError);
+    stream.start(this.state.id);
   }
-
-  handleSuccess = stream => {
-    const video = document.querySelector("#video");
-    window.stream = stream; // make stream available to browser console
-    video.srcObject = stream;
-    video.play();
-  };
-
-  handleError = error => {
-    console.log("navigator.getUserMedia error: ", error);
-  };
 
   callOnImageDrop = () => {
-   const canvasUrl = takePhoto();
-   this.props.onImageDrop([canvasUrl]);
-  }
+    const canvasUrl = takePhoto();
+    this.props.onImageDrop([canvasUrl]);
+  };
 
-  stopStream = () => window.stream.getTracks().forEach(track => track.stop());
+  renderCameraBtns = () => {
+    return (
+      <ul id="cameraBtns">
+        <li>
+          <a
+            id="uploadImageBtn"
+            className="btn-floating btn-large"
+            onClick={this.callOnImageDrop}
+          >
+            <i className="material-icons">add_a_photo</i>
+          </a>
+        </li>
+        <li>
+          <a
+            id="uploadImageBtn"
+            className="btn-floating"
+            onClick={e => {
+              this.props.toggleCameraState();
+              stream.stop();
+            }}
+          >
+            <i className="material-icons">backspace</i>
+          </a>
+        </li>
+      </ul>
+    );
+  };
 
   render() {
     return (
       <React.Fragment>
-        <video id="video" />
-        <ul id="cameraBtns">
-          <li>
-            <a
-              id="uploadImageBtn"
-              className="btn-floating btn-large"
-              onClick={this.callOnImageDrop}
-            >
-              <i className="material-icons">add_a_photo</i>
-            </a>
-          </li>
-          <li>
-            <a
-              id="uploadImageBtn"
-              className="btn-floating"
-              onClick={e => {
-                this.props.toggleCameraState();
-                this.stopStream();
-              }}
-            >
-              <i className="material-icons">backspace</i>
-            </a>
-          </li>
-        </ul>
+        <video id={this.state.id} />
+        {this.renderCameraBtns()}
       </React.Fragment>
     );
   }
