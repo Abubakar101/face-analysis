@@ -41,6 +41,9 @@ There would be different departments to solve the problems without interfering w
 
 
 ---
+[Optimize] 
+- The frontend code - React
+
 ### Features that can be added.
 - User authentication and authorization - using firebase 
 - Same image sizes
@@ -48,6 +51,7 @@ There would be different departments to solve the problems without interfering w
 - Choose the right graphs (First One)
 - Remove the Cloudniary API and POST direct to Face++.
 - Add more instructions of how image can be uploaded, taken live and/or image's link can be given as well
+- [Optional] Convert backend into Node.js 
 
 #### Logs
 - [May 03, 2018] - - Able to upload photos through Camera.
