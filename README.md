@@ -47,6 +47,7 @@ There would be different departments to solve the problems without interfering w
 - Push it to AWS
 - Choose the right graphs (First One)
 - Remove the Cloudniary API and POST direct to Face++.
+- Add more instructions of how image can be uploaded, taken live and/or image's link can be given as well
 
 #### Logs
 - [May 03, 2018] - - Able to upload photos through Camera.
