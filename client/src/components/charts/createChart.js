@@ -6,7 +6,7 @@ const data = {
     id: "beautyScore_",
     type: "pie",
     labels: ["Male", "Female"],
-    label: "Male & Females Beauty Ratings",
+    label: "Beauty Scores",
     data: []
   },
   emotionsData: {
@@ -39,12 +39,11 @@ const renderCharts = (e, i) => {
 
   return Object.keys(data).map((objKey, i) => {
     const chartData = data[objKey];
-    const titles = ["Beauty Scores", "Emotions"];
 
     return (
       <React.Fragment key={i}>
         <br />
-        <h5>{titles[i]}</h5>
+        <h5>{chartData.label}</h5>
         {<Charts data={chartData} />}
       </React.Fragment>
     );
