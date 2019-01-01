@@ -7,10 +7,10 @@ class Charts extends Component {
   };
 
   componentDidMount() {
-    this.createChart(this.props.data);
+    this.fillData(this.props.data);
   }
 
-  createChart = data => {
+  fillData = data => {
     var ctx = document.getElementById(data.id);
     new Chart(ctx, {
       type: data.type,
@@ -19,7 +19,7 @@ class Charts extends Component {
         datasets: [
           {
             label: data.label,
-            data: data.data,
+            data: data.values,
             backgroundColor: [
               "#3e95cd",
               "#8e5ea2",

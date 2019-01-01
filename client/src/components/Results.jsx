@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Col, Row, CardPanel } from "react-materialize";
-import renderCharts from "./charts/createChart";
+import CreateChart from "./chart/CreateChart";
 
 class Results extends Component {
   // Showing API search values
@@ -23,7 +23,7 @@ class Results extends Component {
             <h6>Ethnicity: {e.attributes.ethnicity.value}</h6>
             <h6>Gender: {e.attributes.gender.value}</h6>
 
-            {renderCharts(e, i)}
+            {<CreateChart data={e} index={i} />}
           </CardPanel>
         </Col>
       );
