@@ -8,6 +8,18 @@ import Results from "./components/Results";
 import SavedResults from "./components/SavedResults";
 import ImageLinkForm from "./components/ImageLinkForm";
 import Cloudinary from "./components/Cloudinary";
+import facePlusAPI from "./components/facePlusAPI";
+
+import ReactDropzone from "./components/ReactDropzone";
+import Camera from "./components/Camera";
+
+// <Cloudinary
+// saveImgLink={this.saveImgLink}
+// imgUrl={this.state.imgUrl}
+// toggleCameraState={this.toggleCameraState}
+// showCamera={this.state.showCamera}
+// onImageDrop={this.onImageDrop}
+// />
 
 class App extends Component {
   state = {
@@ -44,36 +56,37 @@ class App extends Component {
     }
   };
 
-  // User Input of Image URL
-  saveImgLink = async imgUrl => {
-    await this.setState({ imgUrl });
-    this.callAPI();
+  /*******************************************************
+    Calling Face++ API
+   *******************************************************/
+  callFacePlusAPI = async (img, method) => {
+    let response, imgUrl;
+
+    if (method === "file") {
+      response = await facePlusAPI.sendImageFile(img[0]);
+      imgUrl = img[0].preview;
+    } else if (method === "link") {
+      response = await facePlusAPI.sendImageLink(img);
+      imgUrl = img;
+    } else if (method === "base") {
+      response = await facePlusAPI.sendImageB64(img);
+    }
+
+    this.saveAPIData(response, imgUrl);
   };
 
-  // POSTing Image to API to fetch the Image's analysis
-  callAPI = async () => {
-    const url = `https://api-us.faceplusplus.com/facepp/v3/detect`,
-      api_key = `Bf1XAtfGUPU8m6zqcmWGyBZ9yqhuBRNF`,
-      api_secret = `Sge5iA6CQ6gOhlY3LpcAO1tUFM6mF_x7`,
-      image_url = this.state.imgUrl,
-      return_attributes = `gender,age,emotion,ethnicity,beauty`;
-
-    try {
-      const response = await axios.post(
-        `${url}?api_key=${api_key}&api_secret=${api_secret}&image_url=${image_url}&return_attributes=${return_attributes}`
-      );
-
-      // Sorting the faces from left to right.
-      let sortedAPIData = response.data.faces.sort(
-        (a, b) => a.face_rectangle.left - b.face_rectangle.left
-      );
-      this.setState({
-        APIData: sortedAPIData,
-        showResults: true
-      });
-    } catch (error) {
-      console.log(error);
-    }
+  // ******************************************************
+  // Saving Images analysis from API
+  saveAPIData = async (response, imgUrl) => {
+    // Sorting the faces from left to right.
+    const sortedAPIData = response.sort(
+      (a, b) => a.face_rectangle.left - b.face_rectangle.left
+    );
+    this.setState({
+      APIData: sortedAPIData,
+      showResults: true,
+      imgUrl
+    });
   };
 
   // Adding saved data into Database - both information and image
@@ -168,48 +181,73 @@ class App extends Component {
     );
   };
 
+  renderComponents = () => {
+    if (this.state.showCamera) {
+      return (
+        <Camera
+          toggleCameraState={this.toggleCameraState}
+          callFacePlusAPI={this.callFacePlusAPI}
+        />
+      );
+    } else if (!this.state.showCamera) {
+      return (
+        <React.Fragment>
+          <div id="reactDragDropTitle" className="Qwigley">
+            <p>Drop an image or click</p>
+            <p>to select a file to upload!</p>
+            <div id="curvedarrow" />
+          </div>
+          <ReactDropzone
+            callFacePlusAPI={this.callFacePlusAPI}
+            imgUrl={this.state.imgUrl}
+          />
+          <ImageLinkForm
+            callFacePlusAPI={this.callFacePlusAPI}
+            toggleCameraState={this.toggleCameraState}
+          />
+        </React.Fragment>
+      );
+    }
+  };
+
   render() {
     return (
       <div className="app">
         <Nav />
 
-        <React.Fragment>
-          <div id="reactDragDropContainer">
-            {!this.state.showCamera && (
-              <div id="reactDragDropTitle" className="Qwigley">
-                <p>Drop an image or click</p>
-                <p>to select a file to upload!</p>
-                <div id="curvedarrow" />
-              </div>
-            )}
-            <Cloudinary
-              saveImgLink={this.saveImgLink}
+        {(this.state.showCamera && (
+          <Camera
+            toggleCameraState={this.toggleCameraState}
+            callFacePlusAPI={this.callFacePlusAPI}
+          />
+        )) || (
+          <React.Fragment>
+            <div id="reactDragDropTitle" className="Qwigley">
+              <p>Drop an image or click</p>
+              <p>to select a file to upload!</p>
+              <div id="curvedarrow" />
+            </div>
+            <ReactDropzone
+              callFacePlusAPI={this.callFacePlusAPI}
               imgUrl={this.state.imgUrl}
-              toggleCameraState={this.toggleCameraState}
-              showCamera={this.state.showCamera}
             />
-          </div>
-          {!this.state.showCamera && (
             <ImageLinkForm
-              saveImgLink={this.saveImgLink}
+              callFacePlusAPI={this.callFacePlusAPI}
               toggleCameraState={this.toggleCameraState}
             />
-          )}
-        </React.Fragment>
+          </React.Fragment>
+        )}
 
         {this.state.savedData[0] ? this.showResultsToggle() : ""}
 
-        {!this.state.showSavedResults ? (
-          this.state.showResults ? (
+        {(!this.state.showSavedResults &&
+          (this.state.showResults && (
             <Results
               APIData={this.state.APIData}
               imgUrl={this.state.imgUrl}
               addInfo={this.addInfo}
             />
-          ) : (
-            ""
-          )
-        ) : (
+          ))) || (
           <SavedResults
             resultsData={this.state.savedData}
             delInfo={this.delInfo}

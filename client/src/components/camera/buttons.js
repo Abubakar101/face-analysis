@@ -7,7 +7,7 @@ const Buttons = props => {
         <a
           id="uploadImageBtn"
           className="btn-floating btn-large"
-          onClick={props.callOnImageDrop}
+          onClick={props.getImageB64}
         >
           <i className="material-icons">add_a_photo</i>
         </a>

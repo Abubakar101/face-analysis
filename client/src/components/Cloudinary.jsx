@@ -45,7 +45,7 @@ class Cloudinary extends Component {
           />
         ) : (
           <ReactDropzone
-            onImageDrop={this.onImageDrop}
+            onImageDrop={this.props.onImageDrop}
             imgUrl={this.props.imgUrl}
           />
         )}

@@ -9,7 +9,7 @@ class ImageLinkForm extends Component {
         onSubmit={e => {
           e.preventDefault();
 
-          this.props.saveImgLink(e.target.userInput.value);
+          this.props.callFacePlusAPI(e.target.userInput.value, "link");
           e.target.userInput.value = "";
         }}
       >

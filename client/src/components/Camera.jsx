@@ -12,9 +12,9 @@ class Camera extends Component {
     stream.start(this.state.id);
   }
 
-  callOnImageDrop = () => {
+  getImageB64 = () => {
     const canvasUrl = takePhoto();
-    this.props.onImageDrop([canvasUrl]);
+    this.props.callFacePlusAPI(canvasUrl, "base");
   };
 
   render() {
@@ -23,7 +23,7 @@ class Camera extends Component {
         <video id={this.state.id} />
         {
           <Buttons
-            callOnImageDrop={this.callOnImageDrop}
+            getImageB64={this.getImageB64}
             toggleCameraState={this.props.toggleCameraState}
             stream={stream}
           />
