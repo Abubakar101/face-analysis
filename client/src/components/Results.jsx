@@ -1,19 +1,12 @@
 import React, { Component } from "react";
 import { Col, Row, CardPanel } from "react-materialize";
-import Charts from "../Charts";
+import CreateChart from "./chart/CreateChart";
 
 class Results extends Component {
-  // Creating charts
-  createCanvas = (id, type, labels, label, data) => {
-    return (
-      <Charts id={id} type={type} labels={labels} label={label} data={data} />
-    );
-  };
-
   // Showing API search values
   renderValues = () => {
     return this.props.APIData.map((e, i) => {
-      let styles = {
+      const styles = {
         width: `${e.face_rectangle.width}px`,
         height: `${e.face_rectangle.height}px`,
         backgroundPosition: `-${e.face_rectangle.left}px -${
@@ -30,41 +23,7 @@ class Results extends Component {
             <h6>Ethnicity: {e.attributes.ethnicity.value}</h6>
             <h6>Gender: {e.attributes.gender.value}</h6>
 
-            <br />
-            <h5>Beauty Scores</h5>
-            {this.createCanvas(
-              `beautyScore${i}`,
-              "pie",
-              ["Male", "Female"],
-              "Male & Females Beauty Ratings",
-              [e.attributes.beauty.male_score, e.attributes.beauty.female_score]
-            )}
-
-            <br />
-            <h5>Emotions</h5>
-            {this.createCanvas(
-              `emotion${i}`,
-              "doughnut",
-              [
-                "Anger",
-                "Disgust",
-                "Fear",
-                "Happiness",
-                "Neutral",
-                "Sadness",
-                "Surprise"
-              ],
-              "Emotions",
-              [
-                e.attributes.emotion.anger,
-                e.attributes.emotion.disgust,
-                e.attributes.emotion.fear,
-                e.attributes.emotion.happiness,
-                e.attributes.emotion.neutral,
-                e.attributes.emotion.sadness,
-                e.attributes.emotion.surprise
-              ]
-            )}
+            {<CreateChart data={e} index={i} />}
           </CardPanel>
         </Col>
       );

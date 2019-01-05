@@ -1,21 +1,25 @@
-import Chart from "chart.js";
 import React, { Component } from "react";
+import Chart from "chart.js";
 
 class Charts extends Component {
+  state = {
+    style: { width: `300px`, height: `300px` }
+  };
+
   componentDidMount() {
-    this.createChart();
+    this.fillData(this.props.data);
   }
 
-  createChart = (id, type, labels, label, data) => {
-    var ctx = document.getElementById(this.props.id);
+  fillData = data => {
+    var ctx = document.getElementById(data.id);
     new Chart(ctx, {
-      type: this.props.type,
+      type: data.type,
       data: {
-        labels: [...this.props.labels],
+        labels: data.labels,
         datasets: [
           {
-            label: this.props.label,
-            data: [...this.props.data],
+            label: data.label,
+            data: data.values,
             backgroundColor: [
               "#3e95cd",
               "#8e5ea2",
@@ -40,10 +44,7 @@ class Charts extends Component {
   render() {
     return (
       <div>
-        <canvas
-          id={this.props.id}
-          style={{ width: `300px`, height: `300px` }}
-        />
+        <canvas id={this.props.data.id} style={this.state.style} />
       </div>
     );
   }

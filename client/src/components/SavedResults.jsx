@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Col, Row, CardPanel } from "react-materialize";
-import Charts from "../Charts";
+import Charts from "./chart/Charts";
 
 class SavedResults extends Component {
   constructor(props) {
