@@ -20,7 +20,7 @@ class ReactDropzone extends Component {
         id="reactDropZone"
         multiple={false}
         accept="image/*"
-        onDrop={e => this.props.callFacePlusAPI(e, "file")}
+        onDrop={e => this.props.callFacePlusAPI(e[0], "file")}
       >
         {this.showDefaultImage()}
       </Dropzone>

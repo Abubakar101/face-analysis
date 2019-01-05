@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import takePhoto from "./camera/takePhoto";
+import drawCanvas from "./camera/canvas";
 import stream from "./camera/stream";
 import Buttons from "./camera/buttons";
 
@@ -12,9 +12,9 @@ class Camera extends Component {
     stream.start(this.state.id);
   }
 
-  getImageB64 = () => {
-    const canvasUrl = takePhoto();
-    this.props.callFacePlusAPI(canvasUrl, "base");
+  takePhoto = async () => {
+    const file = await drawCanvas();
+    this.props.callFacePlusAPI(file, "file");
   };
 
   render() {
@@ -23,7 +23,7 @@ class Camera extends Component {
         <video id={this.state.id} />
         {
           <Buttons
-            getImageB64={this.getImageB64}
+            takePhoto={this.takePhoto}
             toggleCameraState={this.props.toggleCameraState}
             stream={stream}
           />

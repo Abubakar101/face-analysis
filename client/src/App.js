@@ -4,22 +4,12 @@ import "./App.css";
 import axios from "axios";
 
 import Nav from "./components/Nav";
-import Results from "./components/Results";
-import SavedResults from "./components/SavedResults";
-import ImageLinkForm from "./components/ImageLinkForm";
-import Cloudinary from "./components/Cloudinary";
 import facePlusAPI from "./components/facePlusAPI";
-
+import ImageLinkForm from "./components/ImageLinkForm";
 import ReactDropzone from "./components/ReactDropzone";
 import Camera from "./components/Camera";
-
-// <Cloudinary
-// saveImgLink={this.saveImgLink}
-// imgUrl={this.state.imgUrl}
-// toggleCameraState={this.toggleCameraState}
-// showCamera={this.state.showCamera}
-// onImageDrop={this.onImageDrop}
-// />
+import Results from "./components/Results";
+import SavedResults from "./components/SavedResults";
 
 class App extends Component {
   state = {
@@ -63,13 +53,11 @@ class App extends Component {
     let response, imgUrl;
 
     if (method === "file") {
-      response = await facePlusAPI.sendImageFile(img[0]);
-      imgUrl = img[0].preview;
+      response = await facePlusAPI.sendImageFile(img);
+      imgUrl = img.preview;
     } else if (method === "link") {
       response = await facePlusAPI.sendImageLink(img);
       imgUrl = img;
-    } else if (method === "base") {
-      response = await facePlusAPI.sendImageB64(img);
     }
 
     this.saveAPIData(response, imgUrl);
