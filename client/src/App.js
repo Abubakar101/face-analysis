@@ -169,35 +169,6 @@ class App extends Component {
     );
   };
 
-  renderComponents = () => {
-    if (this.state.showCamera) {
-      return (
-        <Camera
-          toggleCameraState={this.toggleCameraState}
-          callFacePlusAPI={this.callFacePlusAPI}
-        />
-      );
-    } else if (!this.state.showCamera) {
-      return (
-        <React.Fragment>
-          <div id="reactDragDropTitle" className="Qwigley">
-            <p>Drop an image or click</p>
-            <p>to select a file to upload!</p>
-            <div id="curvedarrow" />
-          </div>
-          <ReactDropzone
-            callFacePlusAPI={this.callFacePlusAPI}
-            imgUrl={this.state.imgUrl}
-          />
-          <ImageLinkForm
-            callFacePlusAPI={this.callFacePlusAPI}
-            toggleCameraState={this.toggleCameraState}
-          />
-        </React.Fragment>
-      );
-    }
-  };
-
   render() {
     return (
       <div className="app">
