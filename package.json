@@ -1,0 +1,30 @@
+{
+  "name": "face-analysis",
+  "version": "1.0.0",
+  "description": "Using face recognition API using Face++, you get back the information about your age, ethnicity, your gender, beauty's scores, and your emotions.",
+  "main": "server.js",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "body-parse": "^0.1.0",
+    "express": "^4.16.4",
+    "form-data": "^2.3.3"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.9"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Abubakar101/face-analysis.git"
+  },
+  "author": "Muhammad Abubakar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Abubakar101/face-analysis/issues"
+  },
+  "homepage": "https://github.com/Abubakar101/face-analysis#readme"
+}
