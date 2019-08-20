@@ -5,9 +5,9 @@ import axios from "axios";
 
 import Nav from "./components/Nav";
 import facePlusAPI from "./components/facePlusAPI";
-import ImageLinkForm from "./components/ImageLinkForm";
-import ReactDropzone from "./components/ReactDropzone";
-import Camera from "./components/Camera";
+import ImageLinkForm from "./components/imageInput/ImageLinkForm";
+import ReactDropzone from "./components/imageInput/ReactDropzone";
+import Camera from "./components/imageInput/Camera";
 import Results from "./components/Results";
 import SavedResults from "./components/SavedResults";
 
@@ -46,9 +46,7 @@ class App extends Component {
     }
   };
 
-  /*******************************************************
-    Calling Face++ API
-   *******************************************************/
+  // Calling Face++ API
   callFacePlusAPI = async (img, method) => {
     let response, imgUrl;
 
@@ -60,12 +58,11 @@ class App extends Component {
       imgUrl = img;
     }
 
-    this.saveAPIData(response, imgUrl);
+    this.showAPIData(response, imgUrl);
   };
 
-  // ******************************************************
-  // Saving Images analysis from API
-  saveAPIData = async (response, imgUrl) => {
+  // Showing Images analysis from API
+  showAPIData = async (response, imgUrl) => {
     // Sorting the faces from left to right.
     const sortedAPIData = response.sort(
       (a, b) => a.face_rectangle.left - b.face_rectangle.left
@@ -77,7 +74,7 @@ class App extends Component {
     });
   };
 
-  // Adding saved data into Database - both information and image
+  // Adding API data into Database
   addInfo = async (faces, image) => {
     let face = JSON.stringify(faces);
     let data = { face, image, favorite: false };
